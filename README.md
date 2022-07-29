@@ -16,4 +16,8 @@ git push origin feature/<개발하고자하는기능>
 # PR 생성 후 리뷰 요청하기! (develop 으로!!)
 # 끝
 
+# 새로운 작업 시작
+
+git checkout develop
+
 ```
