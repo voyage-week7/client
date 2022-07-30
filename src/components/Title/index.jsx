@@ -1,10 +1,11 @@
 import React from 'react';
-import { GoodTitle } from './styles';
+import { MainTitle, SubTitle } from './styles';
 
 const Title = () => {
   return (
     <div>
-      <GoodTitle>TITLE</GoodTitle>
+      <MainTitle>TITLE</MainTitle>
+      <SubTitle>SUBTITLE</SubTitle>
     </div>
   );
 };
