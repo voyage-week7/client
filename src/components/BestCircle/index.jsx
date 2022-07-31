@@ -6,7 +6,7 @@ const BestCircle = () => {
     return (
         <Circle>
             <div>
-                <MainTitle style={{ marginBottom: "15px" }}>음식종류별 BEST</MainTitle>
+                <MainTitle style={{ paddingBottom: "15px" }}>음식종류별 BEST</MainTitle>
                 <div className='scroll'>
                     <div className='scroll-container'>
                         <div className='scroll-item'>
