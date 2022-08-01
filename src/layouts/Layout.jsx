@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Layout = ({ children }) => {
   const [word, setWord] = useState('');
@@ -11,6 +12,7 @@ const Layout = ({ children }) => {
     },
     [word]
   );
+
   return (
     <Wapper>
       <Header>
@@ -27,15 +29,70 @@ const Layout = ({ children }) => {
               <img src='/images/search.svg' alt='search-icon' />
             </form>
           </div>
+          <div className='header-right'>
+            <img src='/images/search-white.svg' alt='search' />
+            <img src='/images/alert-white.svg' alt='alert' />
+          </div>
         </div>
       </Header>
       {children}
-      <nav>navbar</nav>
+      <NavBar>
+        <div className='container'>
+          <div>
+            <Link to='/'>
+              <img src='/images/home.svg' alt='' />
+            </Link>
+          </div>
+          <div>
+            <Link to='/search'>
+              <img src='/images/search-black.svg' alt='' />
+            </Link>
+          </div>
+          <div>
+            <Link to='/review'>
+              <img src='/images/review.svg' alt='' />
+            </Link>
+          </div>
+          <div>
+            <Link to='/reservations'>
+              <img src='/images/calendar.svg' alt='' />
+            </Link>
+          </div>
+          <div>
+            <Link to='/profile'>
+              <img src='/images/user.svg' alt='' />
+            </Link>
+          </div>
+        </div>
+      </NavBar>
     </Wapper>
   );
 };
 
 export default Layout;
+
+const NavBar = styled.nav`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+
+  & .container {
+    margin: 0 auto;
+    max-width: 480px;
+    background: #fff;
+    display: flex;
+    justify-content: space-around;
+    height: 48px;
+
+    & div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+`;
 
 const Wapper = styled.div`
   max-width: 480px;
@@ -112,6 +169,12 @@ const Header = styled.header`
           outline: none;
         }
       }
+    }
+
+    & .header-right {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
     }
   }
 `;
