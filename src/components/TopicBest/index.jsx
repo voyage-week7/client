@@ -37,8 +37,8 @@ const TopicBest = () => {
         <div style={{ paddingBottom: "45px" }}>
             <MainTitle style={{ marginBottom: "15px" }}>상황별·주제별 BEST</MainTitle>
             <ScrollContainer style={{ padding: "0 20px" }}>
-                {topic_list.map(item => (
-                    <TopicItem>
+                {topic_list.map((item, index) => (
+                    <TopicItem key={index}>
                         <img src={item.img} />
                     </TopicItem>
                 ))}
