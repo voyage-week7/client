@@ -7,12 +7,11 @@ export const MainMenu = styled.ul`
   padding: 0 20px 20px 20px;
   flex-wrap: wrap;
   justify-content: center;
-  border: 1px solid #333;
     div {
         display: flex;
         justify-content: space-between;
-        flex: 1 0 20%;
         align-items: center;
+        flex-wrap: wrap;
         &:nth-child(-n+5){
             margin-bottom: 20px;
         }
@@ -23,6 +22,8 @@ export const MainMenu = styled.ul`
             position: relative;
             align-items: center;
             justify-content: center;
+            display: flex;
+            flex:1 0 20%;
         .label {
             position: absolute;
             display: none;
@@ -43,6 +44,8 @@ export const MainMenu = styled.ul`
 export const MainMenuItem = styled.li`
     display: flex;
     flex-direction: column;
+    align-items: center;
+    cursor: pointer;
     img{
         width: 48px;
         height: 48px;

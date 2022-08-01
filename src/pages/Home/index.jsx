@@ -7,13 +7,15 @@ import RealReview from '../../components/RealReview';
 import Benefits from '../../components/Benefits';
 import NewOpen from '../../components/NewOpen';
 import GuidBook from '../../components/GuideBook';
-import TopicBest from '../../components/TipicBest';
+import TopicBest from '../../components/TopicBest';
 import Tomorrow from '../../components/Tomorrow';
+import { GrayBackground } from '../Profile';
 
 const Home = () => {
   return (
     <div style={{ maxWidth: "480px", margin: "0 auto" }}>
       <Menu />
+      <GrayBackground height="10px" />
       <CircleSlide />
       <VideoReveiw />
       <RealReview />
