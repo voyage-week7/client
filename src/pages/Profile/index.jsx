@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const Profile = () => {
+    const [tab, setTab] = useState(0);
+    console.log(tab)
     return (
-        <Wrapper>
+        <Wrapper style={{ height: "calc(100vh - 96px)" }}>
             <ProfileContainer>
                 <ProfileSection style={{ paddingTop: "24px" }}>
                     <div className='profile'>
@@ -46,6 +48,58 @@ const Profile = () => {
                 </SummarySection>
                 <GrayBackground height="8px" />
             </ProfileContainer>
+            <Tabmenu>
+                <ul>
+                    {tab === 0 ? (
+                        <li onClick={() => setTab(0)} className='focus'>컬렉션 <p>0</p></li>
+                    ) : (
+                        <li onClick={() => setTab(0)}>컬렉션 <p>0</p></li>
+                    )}
+                    {tab === 1 ? (
+                        <li onClick={() => setTab(1)} className='focus'>리뷰<p>0</p></li>
+                    ) : (
+                        <li onClick={() => setTab(1)} >리뷰<p>0</p></li>
+                    )}
+                </ul>
+                <Collection>
+                    {tab === 0 ? (
+                        <CollectionCont>
+                            <section>
+                                <h3>내가 만든 컬렉션 <p>0</p></h3>
+                                <span></span>
+                            </section>
+                            <section>
+                                <h3>관심 레스토랑 <p>0</p></h3>
+                                <span></span>
+                            </section>
+                        </CollectionCont>
+                    ) : (
+                        <CollectionCont display="none">
+                            <section>
+                                <h3>내가 만든 컬렉션 <p>0</p></h3>
+                                <span></span>
+                            </section>
+                            <section>
+                                <h3>관심 레스토랑 <p>0</p></h3>
+                                <span></span>
+                            </section>
+                        </CollectionCont>
+                    )}
+                    {tab === 1 ? (
+                        <ReviewCont>
+                            <section>
+                                등록된 리뷰가 없습니다
+                            </section>
+                        </ReviewCont>
+                    ) : (
+                        <ReviewCont display="none">
+                            <section>
+                                등록된 리뷰가 없습니다
+                            </section>
+                        </ReviewCont>
+                    )}
+                </Collection>
+            </Tabmenu>
         </Wrapper>
     );
 };
@@ -170,6 +224,85 @@ export const SummarySection = styled.section`
             margin-left: 5px;
         }
         }
+    }
+`
+
+export const Tabmenu = styled.div`
+    ul {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    li{
+        font-size: 15px;
+        text-align: center;
+        justify-content: center;
+        width: 50%;
+        display: flex;
+        align-items: center;
+        margin: 0;
+        padding: 16px 4px;
+        border-bottom: 2px solid #ececec;
+        cursor: pointer;
+        p{
+           font-size : 14px;
+           color: #999;
+           margin: 0;
+           margin-left: 3px;
+        }
+        }
+        .focus {
+            border-bottom: 2px solid #333;
+        }
+    }
+`
+
+export const Collection = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
+export const CollectionCont = styled.div`
+    section {
+        padding: 20px 20px 10px 20px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        display: ${(props => props.display)};
+        h3 {
+            font-size: 16px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 15px;
+            p{
+                font-size: 14px;
+                color: #999;
+                margin-left: 8px;
+                font-weight: lighter;
+            }
+        }
+        span {
+            width: 16px;
+            height: 16px;
+            display: block;
+            background-image: url('/images/right_arrow.svg');
+        }
+    }
+`
+export const ReviewCont = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: ${(props) => props.display};
+    section{
+        color: #c8c8c8;
+        font-size: 18px;
+        cursor: default;
+        padding: 114px 0;
     }
 `
 
