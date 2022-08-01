@@ -6,20 +6,19 @@ export const Circle = styled.section`
   width: 100%;
   height: 100%;
   border: 1px solid #333;
-  div{
-    .scroll {
+`;
+export const ScrollContainer = styled.div`
       overflow: auto;
+      display: flex;
       .scroll-container{
         display: flex;
         flex-wrap: nowrap;
         padding: 0 20px;
       }
-    }
-    .scroll::-webkit-scrollbar{
+    &::-webkit-scrollbar{
       display: none;
     }
-  }
-`;
+`
 
 export const CircleItem = styled.div`
   background-image: url(${icon});
@@ -33,6 +32,9 @@ export const CircleItem = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  &:last-child{
+    margin: 0;
+  }
   span {
     color: #fff;
     font-size:14px;

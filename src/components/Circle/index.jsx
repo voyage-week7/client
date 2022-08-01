@@ -1,12 +1,12 @@
 import React from 'react';
-import { Circle, CircleItem } from './styles';
+import { Circle, CircleItem, ScrollContainer } from './styles';
 import { MainTitle } from '../Title/styles';
 const CircleSlide = () => {
     return (
         <Circle>
             <div>
-                <MainTitle style={{ marginBottom: "15px" }}>어디로 가시나요?</MainTitle>
-                <div className='scroll'>
+                <MainTitle style={{ paddingBottom: "15px" }}>어디로 가시나요?</MainTitle>
+                <ScrollContainer>
                     <div className='scroll-container'>
                         <CircleItem>
                             <span>압구정 청담</span>
@@ -21,7 +21,7 @@ const CircleSlide = () => {
                         <CircleItem />
                         <CircleItem />
                     </div>
-                </div>
+                </ScrollContainer>
             </div>
         </Circle>
     );

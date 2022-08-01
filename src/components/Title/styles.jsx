@@ -11,5 +11,6 @@ export const SubTitle = styled.p`
    color: #626262;
   font-size:14px;
   letter-spacing: -0.7px;
-  margin: 0;
+  margin: 0 0 15px 0;
+  padding: 0 20px;
 `
