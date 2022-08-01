@@ -1,11 +1,9 @@
 import styled from 'styled-components';
-import icon from './img/0706apgujeong.jpeg'
 
 export const Circle = styled.section`
   padding-bottom: 45px;
   width: 100%;
   height: 100%;
-  border: 1px solid #333;
 `;
 export const ScrollContainer = styled.div`
       overflow: auto;
@@ -21,19 +19,33 @@ export const ScrollContainer = styled.div`
 `
 
 export const CircleItem = styled.div`
-  background-image: url(${icon});
+  background-image: url(${(props) => props.img} );
   background-size: cover;
-  background-color:rgba(0,0,0,0.4);
-  width: 60px;
-  min-width: 60px;
-  height: 60px;
+  width: ${(props) => props.width};
+  min-width: ${(props) => props.width};
+  height: ${(props) => props.height};
   margin-right: 15px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  cursor: pointer;
   &:last-child{
     margin: 0;
+  }
+  &:before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width:${(props) => props.width};
+    height: ${(props) => props.height};
+    background: rgba(0,0,0,0.4);
+    border-radius: 50%;
+  }
+  &:first-child:before{
+    content: none;
   }
   span {
     color: #fff;
@@ -41,6 +53,8 @@ export const CircleItem = styled.div`
     text-align: center;
     width: 80%;
     line-height: 18px;
-    cursor: default;
+    z-index: 2;
+    letter-spacing: -0.7px;
+    word-break: keep-all;
   }
 `

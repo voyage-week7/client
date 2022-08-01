@@ -1,8 +1,5 @@
 import styled from 'styled-components'
-import userIcon from './img/profile_default_v2.png'
 import mainImg from './img/0727_7.jpeg'
-import quotes from './img/data.svg'
-import star from './img/star.svg'
 
 export const RealReviewItem = styled.div`
     background-size: cover;
@@ -25,7 +22,7 @@ export const RealReviewHeader = styled.div`
         align-items: center;
         flex-direction: row;
         span{
-        background-image: url(${userIcon});
+        background-image: url('/images/profile_default.png');
         background-size: cover;
         width: 30px;
         height: 30px;
@@ -74,7 +71,7 @@ export const RealReviewCont = styled.div`
             top: -1.2em;
             width: 16px;
             height: 14px;
-            background: url(${quotes});
+            background: url('/images/quotes.svg');
         }
         }
         p{
@@ -108,7 +105,7 @@ export const RealReviewFooter = styled.div`
             padding-left: 18px;
             &:before {
                 content: '';
-                background-image: url(${star});
+                background-image: url('/images/star.svg');
                 background-size: contain;
                 width: 16px;
                 height: 16px;
