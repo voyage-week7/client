@@ -1,7 +1,4 @@
 import styled from 'styled-components';
-import rightarrow from './img/right_arrow.svg'
-import rightarrow2 from './img/right_arrow2.svg'
-import star from '../RealReview/img/star.svg'
 
 export const TitleHeader = styled.div`
     display: flex;
@@ -18,7 +15,7 @@ export const TitleHeader = styled.div`
         cursor: pointer!important;
         &:after{
             content: '';
-            background-image: url(${rightarrow});
+            background-image: url('/images/right_arrow.svg');
             background-size: cover;
             width: 16px;
             height: 16px;
@@ -95,7 +92,7 @@ export const SquereFooter = styled.div`
             margin-right: 6px;
             &:before {
                 content: '';
-                background-image: url(${star});
+                background-image: url('/images/star.svg');
                 background-size: contain;
                 width: 16px;
                 height: 16px;
@@ -143,7 +140,7 @@ export const ShowAll = styled.div`
     justify-content: center;
     cursor: pointer;
     .circle {
-        background-image: url(${rightarrow2});
+        background-image: url('/images/right_arrow2.svg');
         background-size: 50%;
         background-repeat: no-repeat;
         background-position: 50% 50%;

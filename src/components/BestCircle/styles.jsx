@@ -1,11 +1,9 @@
 import styled from 'styled-components';
-import icon from './img/_0010_sushi_omakase.jpeg'
 
 export const Circle = styled.section`
   padding-bottom: 45px;
   width: 100%;
   height: 100%;
-  border: 1px solid #333;
   div{
     .scroll {
       overflow: auto;
@@ -14,10 +12,15 @@ export const Circle = styled.section`
         flex-wrap: nowrap;
         padding: 0 20px;
         .scroll-item {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
             span {
             font-size: 14px;
             line-height: 36px;
             height: 36px;
+            cursor: pointer;
         }
         }
       }
@@ -29,15 +32,13 @@ export const Circle = styled.section`
 `;
 
 export const CircleItem = styled.div`
-  background-image: url(${icon});
+  background-image: url(${(props) => props.img});
   background-size: cover;
   background-color:rgba(0,0,0,0.4);
   width: 84px;
   min-width: 84px;
   height: 84px;
-  margin-right: 15px;
+  margin: 0 7.5px;
   border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  
 `
