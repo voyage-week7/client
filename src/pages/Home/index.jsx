@@ -9,10 +9,13 @@ import NewOpen from '../../components/NewOpen';
 import GuidBook from '../../components/GuideBook';
 import TopicBest from '../../components/TipicBest';
 import Tomorrow from '../../components/Tomorrow';
+import ImageSwiper from '../../components/Swiper/iindex';
+import { logoSlideImages } from '../../mock/apis';
 
 const Home = () => {
   return (
-    <div style={{ maxWidth: "480px", margin: "0 auto" }}>
+    <div style={{ maxWidth: '480px', margin: '0 auto' }}>
+      <ImageSwiper data={logoSlideImages} />
       <Menu />
       <CircleSlide />
       <VideoReveiw />

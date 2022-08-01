@@ -1,8 +1,12 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
+import { AiOutlineHome, AiFillHome } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
 
 const Layout = ({ children }) => {
+  const [headerTrigger, setHeaderTrigger] = useState(false);
+  const location = useLocation();
   const [word, setWord] = useState('');
   const onSearch = useCallback(
     (e) => {
@@ -13,9 +17,28 @@ const Layout = ({ children }) => {
     [word]
   );
 
+  const now = useMemo(() => {
+    console.log(location.pathname);
+    return location.pathname;
+  }, [location]);
+
+  useEffect(() => {
+    const onScroll = (e) => {
+      if (window.scrollY > 30) {
+        setHeaderTrigger(true);
+      } else {
+        setHeaderTrigger(false);
+      }
+    };
+
+    window.addEventListener('scroll', onScroll);
+
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
     <Wapper>
-      <Header>
+      <Header headerTrigger={headerTrigger}>
         <div className='container'>
           <div className='header-left'>
             <div className='brand'>C</div>
@@ -40,27 +63,27 @@ const Layout = ({ children }) => {
         <div className='container'>
           <div>
             <Link to='/'>
-              <img src='/images/home.svg' alt='' />
+              <img src={now === '/' ? '/images/home.svg' : '/images/home-light.svg'} alt='' />
             </Link>
           </div>
           <div>
             <Link to='/search'>
-              <img src='/images/search-black.svg' alt='' />
+              <img src={now === '/search' ? '/images/search-bold.svg' : '/images/search-black.svg'} alt='' />
             </Link>
           </div>
           <div>
             <Link to='/review'>
-              <img src='/images/review.svg' alt='' />
+              <img src={now === '/review' ? '/images/review-bold.svg' : '/images/review.svg'} alt='' />
             </Link>
           </div>
           <div>
             <Link to='/reservations'>
-              <img src='/images/calendar.svg' alt='' />
+              <img src={now === '/reservations' ? '/images/calendar-bold.svg' : '/images/calendar.svg'} alt='' />
             </Link>
           </div>
           <div>
             <Link to='/profile'>
-              <img src='/images/user.svg' alt='' />
+              <img src={now === '/profile' ? '/images/user-bold.svg' : '/images/user.svg'} alt='' />
             </Link>
           </div>
         </div>
@@ -105,13 +128,15 @@ const Wapper = styled.div`
 `;
 
 const Header = styled.header`
-  position: sticky;
   top: 0;
   left: 0;
   right: 0;
   z-index: 99;
   opacity: 1;
   visibility: visible;
+  position: fixed;
+  transition: all 100ms;
+  background: ${({ headerTrigger }) => (headerTrigger ? 'white' : 'transparent')};
 
   & .container {
     max-width: 480px;
@@ -119,14 +144,13 @@ const Header = styled.header`
     position: relative;
     display: flex;
     align-items: center;
-    padding: 0 15px;
     height: 48px;
     width: 100%;
-    background: #fff;
+    margin: auto;
 
     & .header-left {
       flex: 1;
-      display: flex;
+      display: ${({ headerTrigger }) => (headerTrigger ? 'flex' : 'none')};
       align-items: center;
 
       & .brand {
@@ -172,7 +196,7 @@ const Header = styled.header`
     }
 
     & .header-right {
-      display: flex;
+      display: ${({ headerTrigger }) => (headerTrigger ? 'none' : 'flex')};
       align-items: center;
       margin-left: auto;
     }
