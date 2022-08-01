@@ -9,11 +9,14 @@ import NewOpen from '../../components/NewOpen';
 import GuidBook from '../../components/GuideBook';
 import TopicBest from '../../components/TopicBest';
 import Tomorrow from '../../components/Tomorrow';
-import { GrayBackground } from '../Profile';
+import ImageSwiper from '../../components/Swiper/iindex';
+import { logoSlideImages } from '../../mock/apis';
+
 
 const Home = () => {
   return (
-    <div style={{ maxWidth: "480px", margin: "0 auto" }}>
+    <div style={{ maxWidth: '480px', margin: '0 auto' }}>
+      <ImageSwiper data={logoSlideImages} />
       <Menu />
       <GrayBackground height="10px" />
       <CircleSlide />
