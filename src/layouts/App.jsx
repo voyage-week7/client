@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Search from '../pages/Search';
 import Layout from './Layout';
 import Login from '../pages/Login';
+import Spinner from '../components/Spinner';
 
 const Home = React.lazy(() => import('../pages/Home'));
 const Profile = React.lazy(() => import('../pages/Profile'));
@@ -13,7 +14,7 @@ function App() {
   const [isLogin, setIsLogin] = useState(false);
 
   return (
-    <Suspense fallback={<div>loading...</div>}>
+    <Suspense fallback={<Spinner />}>
       <Layout>
         <Routes>
           <Route path='/' element={<Home />} />
