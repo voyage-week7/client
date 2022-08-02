@@ -117,13 +117,13 @@ const NavBar = styled.nav`
   }
 `;
 
-const Wapper = styled.div`
+export const Wapper = styled.div`
   max-width: 480px;
   margin: 0 auto;
   background: #fff;
   width: auto;
   position: relative;
-  min-height: 100%;
+  min-height: 100vh;
   box-shadow: 0 0 20px rgb(0 0 0 / 5%);
 `;
 
@@ -136,6 +136,7 @@ const Header = styled.header`
   visibility: visible;
   position: fixed;
   transition: all 100ms;
+  padding: 0 20px;
   background: ${({ headerTrigger }) => (headerTrigger ? 'white' : 'transparent')};
 
   & .container {

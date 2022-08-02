@@ -13,7 +13,6 @@ import ImageSwiper from '../../components/Swiper/iindex';
 import { logoSlideImages } from '../../mock/apis';
 import { GrayBackground } from '../Profile';
 
-
 const Home = () => {
   return (
     <div style={{ maxWidth: '480px', margin: '0 auto' }}>
