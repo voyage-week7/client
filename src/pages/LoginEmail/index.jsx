@@ -4,13 +4,25 @@ import styled from 'styled-components';
 import { Section } from '../Login/styles';
 import { Link, useNavigate } from 'react-router-dom';
 import { FindPassWord, InputWrap, LoginButton } from './styles';
+import { apis, instance } from '../../apis';
+import { useDispatch } from 'react-redux';
+import { userSlice } from '../../redux/features/userSlice';
 
 const LoginEmail = () => {
-  const navigate = useNavigate();
   const [buttonActive, setButtonActive] = useState(true);
 
-  const handleLogin = (e) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const dispatch = useDispatch();
+  const { login } = userSlice.actions;
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
     e.preventDefault();
+    const user = await apis.login(email, password);
+    dispatch(login({ id: user.id, email: email, username: user.username }));
+    console.log(user);
     navigate('/');
   };
 
@@ -23,10 +35,22 @@ const LoginEmail = () => {
         </div>
         <form onSubmit={handleLogin}>
           <InputWrap>
-            <input type='text' placeholder='휴대폰 번호 or 닉네임' autoComplete='off' />
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type='text'
+              placeholder='휴대폰 번호 or 닉네임'
+              autoComplete='off'
+            />
           </InputWrap>
           <InputWrap className='input-control mb-30'>
-            <input type='password' placeholder='비밀번호' autoComplete='off' />
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type='password'
+              placeholder='비밀번호'
+              autoComplete='off'
+            />
             <button type='button' className='hide-password '>
               패스워드보이기
             </button>
