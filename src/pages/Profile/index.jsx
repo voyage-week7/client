@@ -310,6 +310,7 @@ export const GrayBackground = styled.hr`
     width: 100%;
     height: ${(props) => props.height};
     background-color: #ececec;
+    background-color: ${(props) => props.color};
     margin: 0;
     border: 0;
 `

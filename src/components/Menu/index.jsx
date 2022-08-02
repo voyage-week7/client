@@ -49,8 +49,8 @@ const Menu = () => {
     return (
         <MainMenu>
             <div>
-                {menu_list.map(item => (
-                    <div>
+                {menu_list.map((item, index) => (
+                    <div key={index}>
                         <MainMenuItem onClick={() => navigate(`/search`)}>
                             <img src={item.img} alt="" />
                             <div className='label'>신규</div>

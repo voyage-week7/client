@@ -18,7 +18,7 @@ const Home = () => {
     <div style={{ maxWidth: '480px', margin: '0 auto' }}>
       <ImageSwiper data={logoSlideImages} />
       <Menu />
-      <GrayBackground height='10px' />
+      <GrayBackground height="10px" color='#f9f9f9' />
       <CircleSlide />
       <VideoReveiw />
       <RealReview />
