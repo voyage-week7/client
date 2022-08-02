@@ -20,7 +20,6 @@ const Layout = ({ children }) => {
   );
 
   const now = useMemo(() => {
-    console.log(location.pathname);
     return location.pathname;
   }, [location]);
 
@@ -79,8 +78,8 @@ const Layout = ({ children }) => {
             </Link>
           </div>
           <div>
-            <Link to='/reservations'>
-              <img src={now === '/reservations' ? '/images/calendar-bold.svg' : '/images/calendar.svg'} alt='' />
+            <Link to='/reservations/my/planned'>
+              <img src={/reservations/g.test(now) ? '/images/calendar-bold.svg' : '/images/calendar.svg'} alt='' />
             </Link>
           </div>
           <div>
