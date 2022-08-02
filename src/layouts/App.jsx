@@ -1,21 +1,28 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Profile from '../pages/Profile';
 import Search from '../pages/Search';
 import Layout from './Layout';
+import Login from '../pages/Login';
 
 const Home = React.lazy(() => import('../pages/Home'));
+const Profile = React.lazy(() => import('../pages/Profile'));
+const LoginEmail = React.lazy(() => import('../pages/LoginEmail'));
+const SignUp = React.lazy(() => import('../pages/SignUp'));
 
 function App() {
+  const [isLogin, setIsLogin] = useState(false);
+
   return (
     <Suspense fallback={<div>loading...</div>}>
       <Layout>
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/loginEmail' element={<LoginEmail />} />
+          <Route path='/signup' element={<SignUp />} />
           <Route path='/search' element={<Search />} />
           <Route path='/review' element={<div>review</div>} />
           <Route path='/reservations' element={<div>RESERVATIONS</div>} />
-          <Route path='/profile' element={<Profile />} />
+          <Route path='/profile' element={isLogin ? <Profile /> : <Login />} />
         </Routes>
       </Layout>
     </Suspense>

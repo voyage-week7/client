@@ -11,14 +11,14 @@ import TopicBest from '../../components/TopicBest';
 import Tomorrow from '../../components/Tomorrow';
 import ImageSwiper from '../../components/Swiper/iindex';
 import { logoSlideImages } from '../../mock/apis';
-
+import { GrayBackground } from '../Profile';
 
 const Home = () => {
   return (
     <div style={{ maxWidth: '480px', margin: '0 auto' }}>
       <ImageSwiper data={logoSlideImages} />
       <Menu />
-      <GrayBackground height="10px" />
+      <GrayBackground height='10px' />
       <CircleSlide />
       <VideoReveiw />
       <RealReview />
