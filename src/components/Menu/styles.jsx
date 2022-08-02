@@ -4,7 +4,7 @@ export const MainMenu = styled.ul`
   display: flex;
   width: 100%;
   height: 100%;
-  padding: 0 20px 20px 20px;
+  padding: 20px;
   flex-wrap: wrap;
   justify-content: center;
     div {

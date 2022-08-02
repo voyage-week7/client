@@ -6,11 +6,14 @@ import Spinner from '../components/Spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { userSlice } from '../redux/features/userSlice';
 import { useQuery } from '@tanstack/react-query';
+import Stores from '../pages/Stores';
+import Profilemodify from '../pages/Profilemodify';
 import My from '../pages/My';
 import Planned from '../pages/Planned';
 import Done from '../pages/Done';
 import Cancel from '../pages/Cancel';
 import Notification from '../pages/Notification';
+
 
 const Home = React.lazy(() => import('../pages/Home'));
 const Profile = React.lazy(() => import('../pages/Profile'));
@@ -38,7 +41,9 @@ function App() {
           <Route path='/loginEmail' element={<LoginEmail />} />
           <Route path='/signup' element={checkLogin(user.isLogin, <SignUp />)} />
           <Route path='/search' element={<Search />} />
+          <Route path='/stores' element={<Stores />} />
           <Route path='/review' element={<div>review</div>} />
+          <Route path='/profilemodify' element={<Profilemodify />} />
           <Route path='/reservations' element={<MyDinning />}>
             <Route path='my' element={<My />}>
               <Route path='planned' element={<Planned />} />

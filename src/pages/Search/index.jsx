@@ -7,63 +7,64 @@ import { useQuery } from '@tanstack/react-query';
 import { apis } from '../../apis';
 
 const Search = () => {
-  const navigate = useNavigate();
-  const { data } = useQuery(['stores'], () => apis.getStores());
+    const navigate = useNavigate();
+    const { data } = useQuery(['stores'], () => apis.getStores());
 
-  return (
-    <>
-      <SearchHeader>
-        <nav>
-          <span onClick={() => navigate(-1)}></span>
-          <h3>오마카세</h3>
-        </nav>
-        <div className='date-time'>
-          <span>
-            <p>오늘(화)</p>
-            <p>/</p>
-            <p>2명</p>
-            <p>/</p>
-            <p>오후 7:00</p>
-          </span>
-          <p className='arrow'></p>
-        </div>
-        <div className='filter-list'>
-          <ul className='filter-icon'>
-            <li></li>
-            <li></li>
-          </ul>
-          <ul className='filter'>
-            <li>내 주변</li>
-            <li>지역</li>
-            <li>음식종류</li>
-          </ul>
-        </div>
-      </SearchHeader>
-      <SearchMain>
-        <GrayBackground height='8px' />
-        <div className='nav'>
-          <span>
-            283개<p>의 레스토랑</p>
-          </span>
-          <p className='toggle'>추천순</p>
-        </div>
-        {data?.map((d, idx) => (
-          <RestaurantItem key={idx} description={d.description || ''} />
-        ))}
-      </SearchMain>
-    </>
-  );
+    return (
+        <>
+            <SearchHeader>
+                <nav>
+                    <span onClick={() => navigate(-1)}></span>
+                    <h3>오마카세</h3>
+                </nav>
+                <div className='date-time'>
+                    <span>
+                        <p>오늘(화)</p>
+                        <p>/</p>
+                        <p>2명</p>
+                        <p>/</p>
+                        <p>오후 7:00</p>
+                    </span>
+                    <p className='arrow'></p>
+                </div>
+                <div className='filter-list'>
+                    <ul className='filter-icon'>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                    <ul className='filter'>
+                        <li>내 주변</li>
+                        <li>지역</li>
+                        <li>음식종류</li>
+                    </ul>
+                </div>
+            </SearchHeader>
+            <SearchMain>
+                <GrayBackground height='8px' />
+                <div className='nav'>
+                    <span>
+                        283개<p>의 레스토랑</p>
+                    </span>
+                    <p className='toggle'>추천순</p>
+                </div>
+                {data?.map((d, idx) => (
+                    <RestaurantItem key={idx} description={d.description || ''} />
+                ))}
+            </SearchMain>
+        </>
+    );
 };
 
 export default Search;
 
-export const SearchHeader = styled.header`
+export const SearchHeader = styled.div`
   position: fixed;
   top: 0;
   display: flex;
   flex-direction: column;
-  min-width: 480px;
   background-color: #fff;
+  max-width: 480px;
+  width: 100%;
   nav {
     display: flex;
     flex-direction: row;
