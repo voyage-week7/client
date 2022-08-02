@@ -73,8 +73,8 @@ const CircleSlide = () => {
                 <MainTitle style={{ paddingBottom: "15px" }}>어디로 가시나요?</MainTitle>
                 <ScrollContainer>
                     <div className='scroll-container'>
-                        {location_list.map(item => (
-                            <CircleItem width="60px" height="60px" img={item.img}
+                        {location_list.map((item, index) => (
+                            <CircleItem key={index} width="60px" height="60px" img={item.img}
                                 onClick={() => navigate(`/search`)}>
                                 <span>{item.title}</span>
                             </CircleItem>

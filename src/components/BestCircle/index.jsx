@@ -61,8 +61,8 @@ const BestCircle = () => {
                 <MainTitle style={{ paddingBottom: "15px" }}>음식종류별 BEST</MainTitle>
                 <div className='scroll'>
                     <div className='scroll-container'>
-                        {best_list.map(item => (
-                            <div className='scroll-item'>
+                        {best_list.map((item, index) => (
+                            <div className='scroll-item' key={index}>
                                 <CircleItem img={item.img} />
                                 <span onClick={() => navigate(`/search`)}>{item.name}</span>
                             </div>
