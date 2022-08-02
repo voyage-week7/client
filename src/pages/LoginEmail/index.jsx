@@ -57,7 +57,7 @@ const LoginEmail = () => {
           </InputWrap>
 
           <FindPassWord>
-            <Link to='/signup'>아직 회원이 아니신가요?</Link>
+            <Link to='/profile'>아직 회원이 아니신가요?</Link>
           </FindPassWord>
           <LoginButton buttonActive={buttonActive} type='submit'>
             <strong>로그인</strong>
