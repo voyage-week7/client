@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userSlice } from '../redux/features/userSlice';
 import { useQuery } from '@tanstack/react-query';
 import Stores from '../pages/Stores';
+import Profilemodify from '../pages/Profilemodify';
 
 const Home = React.lazy(() => import('../pages/Home'));
 const Profile = React.lazy(() => import('../pages/Profile'));
@@ -37,6 +38,7 @@ function App() {
           <Route path='/review' element={<div>review</div>} />
           <Route path='/reservations' element={<MyDinning />} />
           <Route path='/profile' element={login(user.isLogin, <Profile />, <SignUp />)} />
+          <Route path='/profilemodify' element={<Profilemodify />} />
         </Routes>
       </Layout>
     </Suspense>
