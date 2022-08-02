@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { AiOutlineHome, AiFillHome } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+import { ImSpinner9 } from 'react-icons/im';
+import Spinner from '../components/Spinner';
 
 const Layout = ({ children }) => {
   const [headerTrigger, setHeaderTrigger] = useState(false);
