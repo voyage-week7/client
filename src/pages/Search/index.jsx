@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import RestaurantItem from '../../components/RestaurantItem';
 import { GrayBackground } from '../Profile';
 import { useQuery } from '@tanstack/react-query';
 import { apis } from '../../apis';
+import Modal from '../../components/Modal';
 
 const Search = () => {
     const navigate = useNavigate();
+    const [isOpen, setOpen] = useState(false);
     const { data } = useQuery(['stores'], () => apis.getStores());
-
     return (
         <>
             <SearchHeader>
@@ -30,7 +31,7 @@ const Search = () => {
                 <div className='filter-list'>
                     <ul className='filter-icon'>
                         <li></li>
-                        <li></li>
+                        <li onClick={() => setOpen(true)}></li>
                     </ul>
                     <ul className='filter'>
                         <li>내 주변</li>
@@ -51,6 +52,7 @@ const Search = () => {
                     <RestaurantItem key={idx} description={d.description || ''} />
                 ))}
             </SearchMain>
+            <Modal isOpen={isOpen} />
         </>
     );
 };
@@ -158,7 +160,7 @@ export const SearchHeader = styled.div`
   }
 `;
 export const SearchMain = styled.main`
-  margin-top: 120px;
+  margin-top: 170px;
   border-bottom: 1px solid #f9f9f9;
   margin-bottom: 20px;
   .nav {
