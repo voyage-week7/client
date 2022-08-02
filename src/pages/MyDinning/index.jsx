@@ -1,27 +1,24 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 const MyDinning = () => {
-  const [tabActive, setTabActive] = useState('나의 예약');
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   return (
     <div>
       <Title>
         <h2>마이 다이닝</h2>
       </Title>
       <TabMenu>
-        <TabItem tabActive={tabActive === '나의 예약'} onClick={() => setTabActive('나의 예약')}>
+        <TabItem tabActive={/reservations\/my/.test(pathname)} onClick={() => navigate('/reservations/my/planned')}>
           나의 예약
         </TabItem>
-        <TabItem tabActive={tabActive === '나의 알림'} onClick={() => setTabActive('나의 알림')}>
+        <TabItem tabActive={pathname === '/reservations/alert'} onClick={() => navigate('/reservations/alert')}>
           나의 알림
         </TabItem>
       </TabMenu>
-      <SubTabMenu>
-        <SubTabItem active={true}>방문예정</SubTabItem>
-        <SubTabItem>방문완료</SubTabItem>
-        <SubTabItem>취소/노쇼</SubTabItem>
-      </SubTabMenu>
+      <Outlet />
     </div>
   );
 };
@@ -61,5 +58,5 @@ export const SubTabItem = styled.li`
   font-size: 14px;
   font-weight: 500;
   padding: 8px 15px;
-  border: ${({ active }) => (active ? '1px solid black' : '')};
+  outline: ${({ active }) => (active ? '1px solid black' : '')};
 `;
