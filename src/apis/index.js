@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const SERVER_URL = 'http://52.79.98.62:8080';
+const SERVER_URL = 'http://52.79.98.62';
 
 export const instance = axios.create({
   baseURL: SERVER_URL,
@@ -12,47 +12,36 @@ axios.get('http://52.79.98.62:8080/api/stores?filter=&sort=&word=&minPrice=&maxP
 });
 
 instance.interceptors.request.use((config) => {
-  config = config.headers = {
-    Authorization: window.localStorage.getItem('token'), // FIXME: cookie 로 변경
+  config.headers = {
+    Authorization: window.localStorage.getItem('token'),
   };
   return config;
 });
 
-const stores = [
-  {
-    id: 1,
-    storename: '가게이름',
-    storeImageUrl: ['https:~~~', 'https:~~~', 'https:~~~'],
-    category: '오마카세',
-    region: '부산 해운대',
-    launchPrice: '3만원',
-    dinnerPrice: '4만원',
-    phone: 9192912,
-    description: '매장설명',
-    lat: 128.3,
-    long: 27.2,
-    reviewAvg: 3.4,
-    reviews: [
-      {
-        id: 1,
-        storeId: 1,
-        storename: '가게이름',
-        title: '제목',
-        content: '내용',
-        rate: 3.3,
-        image: ['https://…', 'https://…'],
-        createdAt: '작성일자',
-      },
-    ],
-    reservations: [],
-  },
-];
-
 export const apis = {
-  login: async (email, password) => ({
-    id: '유저아이디',
-    username: email + 'user',
-    token: 'wekljfiwejfwje@efw',
-  }),
-  getStores: async () => stores,
+  checkId: (id) => instance.get(`/api/users/${id}`),
+  signUp: async (id, pw, username) => instance.post('/api/signup', { id, pw, username }),
+  logIn: async (id, pw) => instance.post('/api/signin', { id, pw }),
+  signOut: async () => instance.delete('/api/users'),
+  getUser: async () => instance.get('/api/users'),
+  getReservations: async () => instance.get('/api/users/reservations'),
+  getReviews: async () => instance.get('/api/users/reivews'),
+  patchUser: async () => instance.patch('/api/users'),
+  createReview: async (storeId, { title, content, image }) =>
+    instance.post(`/api/review/stores/${storeId}`, { title, content, image }),
+  getStoreDetail: async (id) => instance.get(`/api/stores/${id}`),
+  getStoresWithFilter: async (filter = '', sort = '', word = '', minPrice = '', maxPrice = '') =>
+    instance.get(`/api/stores?&filter=${filter}&sort=${sort}&word=${word}&minPrice=${minPrice}&maxPrice=${maxPrice}`),
+  getStores: async () => instance.get('/api/stores'),
+  reservate: async (storeId, { date, members }) =>
+    instance.post(`/api/reservation/store/${storeId}`, {
+      date,
+      members,
+    }),
+  cancelReservate: async (id) => instance.delete(`/api/reservation/${id}`),
+  uploadImage: async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    return instance.post(`/api/upload`, formData);
+  },
 };

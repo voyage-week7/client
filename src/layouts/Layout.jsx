@@ -39,56 +39,60 @@ const Layout = ({ children }) => {
 
   return (
     <Wapper>
-      <Header headerTrigger={headerTrigger}>
-        <div className='container'>
-          <div className='header-left'>
-            <div className='brand'>C</div>
-            <form onSubmit={onSearch}>
-              <input
-                type='text'
-                placeholder='지역, 음식, 레스토랑명으로 찾아보세요.'
-                value={word}
-                onChange={(e) => setWord(e.target.value)}
-              />
-              <img src='/images/search.svg' alt='search-icon' />
-            </form>
+      {/search/g.test(now) ? null : (
+        <Header headerTrigger={headerTrigger}>
+          <div className='container'>
+            <div className='header-left'>
+              <div className='brand'>C</div>
+              <form onSubmit={onSearch}>
+                <input
+                  type='text'
+                  placeholder='지역, 음식, 레스토랑명으로 찾아보세요.'
+                  value={word}
+                  onChange={(e) => setWord(e.target.value)}
+                />
+                <img src='/images/search.svg' alt='search-icon' />
+              </form>
+            </div>
+            <div className='header-right'>
+              <img src='/images/search-white.svg' alt='search' />
+              <img src='/images/alert-white.svg' alt='alert' />
+            </div>
           </div>
-          <div className='header-right'>
-            <img src='/images/search-white.svg' alt='search' />
-            <img src='/images/alert-white.svg' alt='alert' />
-          </div>
-        </div>
-      </Header>
+        </Header>
+      )}
       {children}
-      <NavBar>
-        <div className='container'>
-          <div>
-            <Link to='/'>
-              <img src={now === '/' ? '/images/home.svg' : '/images/home-light.svg'} alt='' />
-            </Link>
+      {/search/g.test(now) ? null : (
+        <NavBar>
+          <div className='container'>
+            <div>
+              <Link to='/'>
+                <img src={now === '/' ? '/images/home.svg' : '/images/home-light.svg'} alt='' />
+              </Link>
+            </div>
+            <div>
+              <Link to='/search'>
+                <img src={now === '/search' ? '/images/search-bold.svg' : '/images/search-black.svg'} alt='' />
+              </Link>
+            </div>
+            <div>
+              <Link to='/review'>
+                <img src={now === '/review' ? '/images/review-bold.svg' : '/images/review.svg'} alt='' />
+              </Link>
+            </div>
+            <div>
+              <Link to='/reservations/my/planned'>
+                <img src={/reservations/g.test(now) ? '/images/calendar-bold.svg' : '/images/calendar.svg'} alt='' />
+              </Link>
+            </div>
+            <div>
+              <Link to='/profile'>
+                <img src={now === '/profile' ? '/images/user-bold.svg' : '/images/user.svg'} alt='' />
+              </Link>
+            </div>
           </div>
-          <div>
-            <Link to='/search'>
-              <img src={now === '/search' ? '/images/search-bold.svg' : '/images/search-black.svg'} alt='' />
-            </Link>
-          </div>
-          <div>
-            <Link to='/review'>
-              <img src={now === '/review' ? '/images/review-bold.svg' : '/images/review.svg'} alt='' />
-            </Link>
-          </div>
-          <div>
-            <Link to='/reservations/my/planned'>
-              <img src={/reservations/g.test(now) ? '/images/calendar-bold.svg' : '/images/calendar.svg'} alt='' />
-            </Link>
-          </div>
-          <div>
-            <Link to='/profile'>
-              <img src={now === '/profile' ? '/images/user-bold.svg' : '/images/user.svg'} alt='' />
-            </Link>
-          </div>
-        </div>
-      </NavBar>
+        </NavBar>
+      )}
     </Wapper>
   );
 };
