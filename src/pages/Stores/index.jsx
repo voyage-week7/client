@@ -17,7 +17,10 @@ const Stores = () => {
     <Reservcontainer>
       {tab === 0 ? (
         <>
-          <div className="img"></div>
+          <div className="img">
+
+            <span className='location'></span>
+          </div>
           <div className="section">
             <h3>하쯔호</h3>
             <span>알찬 구성의 미들급 스시야</span>
@@ -106,10 +109,22 @@ export default Stores;
 
 export const Reservcontainer = styled.div`
   .img {
+    position: relative;
     width: 480px;
     height: 320px;
     background-color: coral;
     margin-bottom: 40px;
+  }
+  .location {
+    background-image: url('/images/map_location_icon.svg');
+    width: 48px;
+    height: 48px;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    transform: translateY(50%);
+    right: 20px;
+    cursor: pointer;
   }
   .section {
     padding: 0 20px;
