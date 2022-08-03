@@ -11,6 +11,10 @@ const Search = () => {
     const navigate = useNavigate();
     const [isOpen, setOpen] = useState(false);
     const { data } = useQuery(['stores'], () => apis.getStores());
+
+
+
+
     return (
         <>
             <SearchHeader>
@@ -49,7 +53,17 @@ const Search = () => {
                     <p className='toggle'>추천순</p>
                 </div>
                 {data?.map((d, idx) => (
-                    <RestaurantItem key={idx} description={d.description || ''} />
+                    <RestaurantItem
+                        key={idx}
+                        storename={d.storename}
+                        description={d.description || ''}
+                        region={d.region}
+                        category={d.category}
+                        launchPrice={d.launchPrice}
+                        dinnerPrice={d.dinnerPrice}
+                        storeImageUrl={d.storeImageUrl}
+                        id={d.id}
+                    />
                 ))}
             </SearchMain>
             <Modal isOpen={isOpen} />

@@ -1,10 +1,14 @@
 import axios from 'axios';
 
-const SERVER_URL = 'http://localhost:3030';
+const SERVER_URL = 'http://52.79.98.62:8080';
 
 export const instance = axios.create({
   baseURL: SERVER_URL,
   withCredentials: true,
+});
+
+axios.get('http://52.79.98.62:8080/api/stores?filter=&sort=&word=&minPrice=&maxPrice=').then((response) => {
+  console.log(response);
 });
 
 instance.interceptors.request.use((config) => {

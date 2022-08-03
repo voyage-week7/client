@@ -294,6 +294,7 @@ export const SummarySection = styled.section`
 `;
 
 export const Tabmenu = styled.div`
+margin-top: ${(props) => props.margin === 0 ? "0" : "48px"};
   ul {
     display: flex;
     flex-direction: row;

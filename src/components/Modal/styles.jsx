@@ -132,4 +132,40 @@ export const StickyBottom = styled.div`
         border: none;
     }
     }
+    .reservation {
+        display: flex;
+        flex-direction: row;
+        height: 48px;
+        width: 100%;
+        align-items: center;
+        .leftbutton {
+            padding: 0 10px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            p{
+            width: 32px;
+            height: 32px;
+            margin: 0 7px;
+            cursor: pointer;
+            &:first-child{
+                background-image: url('/images/back_arrow.svg');  
+            }
+            &:nth-child(2){
+                background-image: url('/images/bookmark.svg');
+            }
+            &:nth-child(3){
+                background-image: url('/images/share.svg');
+            }
+            &:nth-child(4){
+                background-image: url('/images/call.svg');
+            }
+        }
+        }
+        button{
+            border-radius: 30px;
+            height: 36px;
+            line-height: 36px;
+        }
+    }
 `

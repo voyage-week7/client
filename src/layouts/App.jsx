@@ -34,7 +34,7 @@ function App() {
           <Route path='/loginEmail' element={<LoginEmail />} />
           <Route path='/signup' element={login(user.isLogin, <SignUp />)} />
           <Route path='/search' element={<Search />} />
-          <Route path='/stores' element={<Stores />} />
+          <Route path='/stores/:Rid/*' element={<Stores />} />
           <Route path='/review' element={<div>review</div>} />
           <Route path='/reservations' element={<MyDinning />} />
           <Route path='/profile' element={login(user.isLogin, <Profile />, <SignUp />)} />
