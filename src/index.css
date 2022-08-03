@@ -1,0 +1,40 @@
+/*:root{*/
+/* --swiper-theme-color:white !important;*/
+/*}*/
+
+.swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet, .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet{
+    background-color: white !important;
+}
+
+.spinner_bg{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 9999;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.spinner_bg svg{
+
+
+    color: #f64d2c;
+    font-size: 2rem;
+}
+
+.rotate{
+    animation: 1s infinite linear spin;
+}
+
+@keyframes spin{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
