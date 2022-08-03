@@ -10,7 +10,7 @@ const SignUp = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    navigate('/');
+    navigate('/loginEmail');
   };
 
   return (
