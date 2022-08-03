@@ -1,7 +1,6 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Layout from './Layout';
-import Login from '../pages/Login';
 import Spinner from '../components/Spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { userSlice } from '../redux/features/userSlice';
@@ -14,13 +13,13 @@ import Done from '../pages/Done';
 import Cancel from '../pages/Cancel';
 import Notification from '../pages/Notification';
 
-
 const Home = React.lazy(() => import('../pages/Home'));
 const Profile = React.lazy(() => import('../pages/Profile'));
 const LoginEmail = React.lazy(() => import('../pages/LoginEmail'));
 const SignUp = React.lazy(() => import('../pages/SignUp'));
 const MyDinning = React.lazy(() => import('../pages/MyDinning'));
 const Search = React.lazy(() => import('../pages/Search'));
+const Login = React.lazy(() => import('../pages/Login'));
 
 function App() {
   const navigate = useNavigate();
@@ -39,7 +38,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/loginEmail' element={<LoginEmail />} />
-          <Route path='/signup' element={checkLogin(user.isLogin, <SignUp />)} />
+          <Route path='/signup' element={<SignUp />} />
           <Route path='/search' element={<Search />} />
           <Route path='/stores/:Rid/*' element={<Stores />} />
           <Route path='/review' element={<div>review</div>} />
@@ -52,7 +51,7 @@ function App() {
             </Route>
             <Route path='alert' element={<Notification />} />
           </Route>
-          <Route path='/profile' element={checkLogin(user.isLogin, <Profile />, <SignUp />)} />
+          <Route path='/profile' element={checkLogin(user.isLogin, <Profile />, <Login />)} />
         </Routes>
       </Layout>
     </Suspense>
