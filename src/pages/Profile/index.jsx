@@ -6,7 +6,7 @@ const Profile = () => {
     const [tab, setTab] = useState(0);
     const navigate = useNavigate();
     return (
-        <Wrapper style={{ overflow: "hidden" }}>
+        <>
             <Pageheader>
                 <nav>
                     <h3>마이페이지</h3>
@@ -119,7 +119,7 @@ const Profile = () => {
                     )}
                 </Collection>
             </Tabmenu>
-        </Wrapper>
+        </>
     );
 };
 
@@ -155,6 +155,22 @@ export const Pageheader = styled.header`
         height: 22px;
         background-image: url('/images/setting.svg');
         cursor: pointer;
+    }
+    p {
+        color: #ff3d00;
+        font-size: 14px;
+        letter-spacing: -0.7px;
+        display: flex;
+        flex-direction: row;
+        gap: 4px;
+        cursor: pointer;
+        &:before{
+            content: '';
+            display: block;
+            width: 16px;
+            height: 16px;
+            background-image: url('/images/initialization.svg');
+        }
     }
 }
 `
