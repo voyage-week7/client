@@ -12,6 +12,7 @@ import Planned from '../pages/Planned';
 import Done from '../pages/Done';
 import Cancel from '../pages/Cancel';
 import Notification from '../pages/Notification';
+import ReviewWrite from '../components/ReviewWrite';
 
 const Home = React.lazy(() => import('../pages/Home'));
 const Profile = React.lazy(() => import('../pages/Profile'));

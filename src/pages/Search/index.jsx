@@ -11,10 +11,8 @@ const Search = () => {
     const navigate = useNavigate();
     const [isOpen, setOpen] = useState(false);
     const { data } = useQuery(['stores'], () => apis.getStores());
-
-
-
-
+    const today = new Date();
+    const day = ['일', '월', '화', '수', '목', '금', '토']
     return (
         <>
             <SearchHeader>
@@ -24,7 +22,7 @@ const Search = () => {
                 </nav>
                 <div className='date-time'>
                     <span>
-                        <p>오늘(화)</p>
+                        <p>오늘({day[today.getDay()]})</p>
                         <p>/</p>
                         <p>2명</p>
                         <p>/</p>

@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import mainImg from './img/0727_7.jpeg'
 
 export const RealReviewItem = styled.div`
     background-size: cover;
@@ -22,7 +21,7 @@ export const RealReviewHeader = styled.div`
         align-items: center;
         flex-direction: row;
         span{
-        background-image: url('/images/profile_default.png');
+        background-image: url('/images/0727_7.jpeg');
         background-size: cover;
         width: 30px;
         height: 30px;
@@ -49,7 +48,7 @@ export const RealReviewHeader = styled.div`
 `
 
 export const RealReviewCont = styled.div`
-    background-image: url(${mainImg});
+    background-image: url('/images/0727_7.jpeg');
     background-size: cover;
     width: 200px;
     height: 200px;
