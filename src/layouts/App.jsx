@@ -20,6 +20,7 @@ const SignUp = React.lazy(() => import('../pages/SignUp'));
 const MyDinning = React.lazy(() => import('../pages/MyDinning'));
 const Search = React.lazy(() => import('../pages/Search'));
 const Login = React.lazy(() => import('../pages/Login'));
+const Feed = React.lazy(() => import('../pages/Feed'));
 
 function App() {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ function App() {
           <Route path='/signup' element={<SignUp />} />
           <Route path='/search' element={<Search />} />
           <Route path='/stores/:Rid/*' element={<Stores />} />
-          <Route path='/review' element={<div>review</div>} />
+          <Route path='/review' element={<Feed />} />
           <Route path='/profilemodify' element={<Profilemodify />} />
           <Route path='/reservations' element={<MyDinning />}>
             <Route path='my' element={<My />}>
