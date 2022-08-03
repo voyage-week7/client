@@ -16,9 +16,8 @@ const Stores = () => {
   return (
     <Reservcontainer>
       {tab === 0 ? (
-        <>
+        <div style={{ minWidth: '480px' }}>
           <div className="img">
-
             <span className='location'></span>
           </div>
           <div className="section">
@@ -35,16 +34,16 @@ const Stores = () => {
             </div>
           </div>
           <GrayBackground height="8px" />
-        </>
+        </div>
       ) : (
-        <>
+        <div style={{ minWidth: "480px" }}>
           <SearchHeader>
             <nav>
               <span onClick={() => navigate(-1)}></span>
               <h3>하쯔오</h3>
             </nav>
           </SearchHeader>
-        </>
+        </div>
       )
       }
       <Tabmenu margin={tab}>
@@ -108,6 +107,7 @@ const Stores = () => {
 export default Stores;
 
 export const Reservcontainer = styled.div`
+  min-width: 480px;
   .img {
     position: relative;
     width: 480px;
