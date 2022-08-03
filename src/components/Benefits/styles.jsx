@@ -40,7 +40,7 @@ export const SquereItem = styled.div`
             position: absolute;
             left: 0;
             top: 0;
-            border-radius: 10px;
+            border-radius: ${(props) => props.radius == 0 ? '0px' : '10px'}
         }
         span {
             color: #fff;

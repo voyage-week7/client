@@ -41,7 +41,7 @@ function App() {
           <Route path='/loginEmail' element={<LoginEmail />} />
           <Route path='/signup' element={checkLogin(user.isLogin, <SignUp />)} />
           <Route path='/search' element={<Search />} />
-          <Route path='/stores' element={<Stores />} />
+          <Route path='/stores/:Rid/*' element={<Stores />} />
           <Route path='/review' element={<div>review</div>} />
           <Route path='/profilemodify' element={<Profilemodify />} />
           <Route path='/reservations' element={<MyDinning />}>
