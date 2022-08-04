@@ -11,10 +11,8 @@ const Search = () => {
     const navigate = useNavigate();
     const [isOpen, setOpen] = useState(false);
     const { data } = useQuery(['stores'], () => apis.getStores());
-
-
-
-
+    const today = new Date();
+    const day = ['일', '월', '화', '수', '목', '금', '토']
     return (
         <>
             <SearchHeader>
@@ -24,7 +22,7 @@ const Search = () => {
                 </nav>
                 <div className='date-time'>
                     <span>
-                        <p>오늘(화)</p>
+                        <p>오늘({day[today.getDay()]})</p>
                         <p>/</p>
                         <p>2명</p>
                         <p>/</p>
@@ -37,11 +35,13 @@ const Search = () => {
                         <li></li>
                         <li onClick={() => setOpen(true)}></li>
                     </ul>
-                    <ul className='filter'>
-                        <li>내 주변</li>
-                        <li>지역</li>
-                        <li>음식종류</li>
-                    </ul>
+                    <div className='filter'>
+                        <ul>
+                            <li>내 주변</li>
+                            <li>지역</li>
+                            <li>음식종류</li>
+                        </ul>
+                    </div>
                 </div>
             </SearchHeader>
             <SearchMain>
@@ -160,8 +160,17 @@ export const SearchHeader = styled.div`
       flex-direction: row;
       flex-wrap: nowrap;
       padding: 0 20px;
-      li {
+      overflow: auto;
+      &::-webkit-scrollbar{
+      display: none;
+    }
+      ul{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        li {
         line-height: 36px;
+        height: 36px;
         border-radius: 18px;
         border: 1px solid #d5d5d5;
         font-size: 14px;
@@ -169,6 +178,8 @@ export const SearchHeader = styled.div`
         padding: 0 14px;
         margin-right: 8px;
         cursor: pointer;
+        flex-shrink: 0;
+      }
       }
     }
   }

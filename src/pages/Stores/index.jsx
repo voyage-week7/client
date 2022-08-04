@@ -4,6 +4,7 @@ import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import PhotoList from '../../components/PhotoList';
 import Review from '../../components/Review';
+import ReviewWrite from '../../components/ReviewWrite';
 import { GrayBackground, Tabmenu } from '../Profile';
 import { SearchHeader } from '../Search';
 
@@ -16,9 +17,8 @@ const Stores = () => {
   return (
     <Reservcontainer>
       {tab === 0 ? (
-        <>
+        <div style={{ minWidth: '480px' }}>
           <div className="img">
-
             <span className='location'></span>
           </div>
           <div className="section">
@@ -35,16 +35,16 @@ const Stores = () => {
             </div>
           </div>
           <GrayBackground height="8px" />
-        </>
+        </div>
       ) : (
-        <>
+        <div style={{ minWidth: "480px" }}>
           <SearchHeader>
             <nav>
               <span onClick={() => navigate(-1)}></span>
               <h3>하쯔오</h3>
             </nav>
           </SearchHeader>
-        </>
+        </div>
       )
       }
       <Tabmenu margin={tab}>
@@ -100,6 +100,7 @@ const Stores = () => {
       <Routes>
         <Route path='/PhotoList' element={<PhotoList />} />
         <Route path='/Review' element={<Review />} />
+        <Route path='/ReviewWirte' element={<ReviewWrite />} />
       </Routes>
     </Reservcontainer>
   );
@@ -108,6 +109,7 @@ const Stores = () => {
 export default Stores;
 
 export const Reservcontainer = styled.div`
+  min-width: 480px;
   .img {
     position: relative;
     width: 480px;
