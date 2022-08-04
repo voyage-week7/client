@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const SERVER_URL = 'http://52.79.98.62';
+const SERVER_URL = 'http://52.79.98.62:8080';
 
 export const instance = axios.create({
   baseURL: SERVER_URL,
@@ -9,7 +9,7 @@ export const instance = axios.create({
 
 instance.interceptors.request.use((config) => {
   config.headers = {
-    Authorization: window.localStorage.getItem('token'),
+    Authorization: `BEARER ${window.localStorage.getItem('token')}`,
   };
   return config;
 });

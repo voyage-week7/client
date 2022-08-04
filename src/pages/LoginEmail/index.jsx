@@ -1,29 +1,31 @@
 import React, { useState } from 'react';
 import { Wapper } from '../../layouts/Layout';
-import styled from 'styled-components';
 import { Section } from '../Login/styles';
 import { Link, useNavigate } from 'react-router-dom';
 import { FindPassWord, InputWrap, LoginButton } from './styles';
-import { apis, instance } from '../../apis';
+import { apis } from '../../apis';
 import { useDispatch } from 'react-redux';
 import { userSlice } from '../../redux/features/userSlice';
 
 const LoginEmail = () => {
-  const [buttonActive, setButtonActive] = useState(true);
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
   const dispatch = useDispatch();
-  const { login } = userSlice.actions;
+  const { logIn } = userSlice.actions;
   const navigate = useNavigate();
+  const [buttonActive, setButtonActive] = useState(true);
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const user = await apis.login(email, password);
-    dispatch(login({ id: user.id, email: email, username: user.username }));
-    console.log(user);
-    navigate('/');
+    const user = await apis.logIn(id, password);
+
+    if (user.headers.authorization) {
+      window.localStorage.setItem('token', user.headers.authorization.split(' ')[1]);
+      const userInfo = await apis.getUser();
+      console.log(userInfo);
+      dispatch(logIn({ id: userInfo.id, username: userInfo.username }));
+      navigate('/');
+    }
   };
 
   return (
@@ -36,8 +38,8 @@ const LoginEmail = () => {
         <form onSubmit={handleLogin}>
           <InputWrap>
             <input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={id}
+              onChange={(e) => setId(e.target.value)}
               type='text'
               placeholder='휴대폰 번호 or 닉네임'
               autoComplete='off'
