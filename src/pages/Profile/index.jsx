@@ -4,145 +4,173 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { userSlice } from '../../redux/features/userSlice';
 import { apis } from '../../apis';
+import { useQuery } from '@tanstack/react-query';
+import { ScrollContainer } from '../../components/Circle/styles';
+import { ReviewImg } from '../../components/Review/stylex';
 
 const Profile = () => {
-  const [tab, setTab] = useState(0);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { logOut } = userSlice.actions;
-  const handleLogOut = useCallback(() => {
-    window.localStorage.removeItem('token');
-    dispatch(logOut());
-  }, [dispatch, logOut]);
-
-  const handleSignOut = useCallback(async () => {
-    const res = await apis.signOut();
-    console.log(res);
-    if (res.status < 400) {
-      alert('회원탈퇴 되었습니다');
-      window.localStorage.removeItem('token');
-      dispatch(logOut());
-    }
-  }, [dispatch, logOut]);
-
-  return (
-    <>
-      <Pageheader>
-        <nav>
-          <h3>마이페이지</h3>
-          <span></span>
-        </nav>
-      </Pageheader>
-      <ProfileContainer>
-        <ProfileSection style={{ paddingTop: '24px' }}>
-          <div className='profile'>
-            <div className='profile-main'>
-              <img src='/images/profile_default.png' alt='' />
-              <div className='profile-meta'>
-                <h4>유명한 미식가_42274</h4>
-                <div className='desc'>
-                  <dl>
-                    <dt>팔로잉</dt>
-                    <dd>0</dd>
-                  </dl>
-                  <span>|</span>
-                  <dl>
-                    <dt>팔로워</dt>
-                    <dd>0</dd>
-                  </dl>
-                </div>
-              </div>
-            </div>
-            <button onClick={() => navigate('/profilemodify')}>프로필 수정</button>
-          </div>
-        </ProfileSection>
-        <GrayBackground height='8px' />
-        <SummarySection>
-          <ul>
-            <li>
-              <p>평균 별점</p>
-              <span>아직 평가를 하지 않았어요</span>
-            </li>
-            <li>
-              <p>음식 취향</p>
-              <span>아직 취향을 선택하지 않았어요</span>
-            </li>
-            <li>
-              <p>활동 지역</p>
-              <span>아직 활동 지역을 입력하지 않았어요</span>
-            </li>
-          </ul>
-        </SummarySection>
-        <GrayBackground height='8px' />
-      </ProfileContainer>
-      <Tabmenu>
-        <ul>
-          {tab === 0 ? (
-            <li onClick={() => setTab(0)} className='focus'>
-              컬렉션 <p>0</p>
-            </li>
-          ) : (
-            <li onClick={() => setTab(0)}>
-              컬렉션 <p>0</p>
-            </li>
-          )}
-          {tab === 1 ? (
-            <li onClick={() => setTab(1)} className='focus'>
-              리뷰<p>0</p>
-            </li>
-          ) : (
-            <li onClick={() => setTab(1)}>
-              리뷰<p>0</p>
-            </li>
-          )}
-        </ul>
-        <Collection>
-          {tab === 0 ? (
-            <CollectionCont>
-              <section>
-                <h3>
-                  내가 만든 컬렉션 <p>0</p>
-                </h3>
-                <span></span>
-              </section>
-              <section>
-                <h3>
-                  관심 레스토랑 <p>0</p>
-                </h3>
-                <span></span>
-              </section>
-            </CollectionCont>
-          ) : (
-            <CollectionCont display='none'>
-              <section>
-                <h3>
-                  내가 만든 컬렉션 <p>0</p>
-                </h3>
-                <span></span>
-              </section>
-              <section>
-                <h3>
-                  관심 레스토랑 <p>0</p>
-                </h3>
-                <span></span>
-              </section>
-            </CollectionCont>
-          )}
-          {tab === 1 ? (
-            <ReviewCont>
-              <section>등록된 리뷰가 없습니다</section>
-            </ReviewCont>
-          ) : (
-            <ReviewCont display='none'>
-              <section>등록된 리뷰가 없습니다</section>
-            </ReviewCont>
-          )}
-        </Collection>
-        <button onClick={handleLogOut}>로그아웃</button>
-        <button onClick={handleSignOut}>회원탈퇴</button>
-      </Tabmenu>
-    </>
-  );
+    const { data } = useQuery(['user'], () => apis.getUser().then((res) => res.data));
+    const { reviewdata } = useQuery(['myreview'], () => apis.getReviews().then(res => res.data));
+    console.log(reviewdata);
+    const [tab, setTab] = useState(0);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { logOut } = userSlice.actions;
+    const handleLogOut = useCallback(() => {
+        window.localStorage.removeItem('token');
+        dispatch(logOut());
+    }, [dispatch, logOut]);
+    const handleSignOut = useCallback(async () => {
+        const res = await apis.signOut();
+        console.log(res);
+        if (res.status < 400) {
+            alert('회원탈퇴 되었습니다');
+            window.localStorage.removeItem('token');
+            dispatch(logOut());
+        }
+    }, [dispatch, logOut]);
+    return (
+        <>
+            <Pageheader>
+                <nav>
+                    <h3>마이페이지</h3>
+                    <span></span>
+                </nav>
+            </Pageheader>
+            <ProfileContainer>
+                <ProfileSection style={{ paddingTop: '24px' }}>
+                    <div className='profile'>
+                        <div className='profile-main'>
+                            <img src='/images/profile_default.png' alt='' />
+                            <div className='profile-meta'>
+                                <h4>{data?.username}</h4>
+                                <div className='desc'>
+                                    <dl>
+                                        <dt>팔로잉</dt>
+                                        <dd>0</dd>
+                                    </dl>
+                                    <span>|</span>
+                                    <dl>
+                                        <dt>팔로워</dt>
+                                        <dd>0</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                        <button onClick={() => navigate('/profilemodify')}>프로필 수정</button>
+                    </div>
+                </ProfileSection>
+                <GrayBackground height='8px' />
+                <SummarySection>
+                    <ul>
+                        <li>
+                            <p>평균 별점</p>
+                            <span>아직 평가를 하지 않았어요</span>
+                        </li>
+                        <li>
+                            <p>음식 취향</p>
+                            <span>아직 취향을 선택하지 않았어요</span>
+                        </li>
+                        <li>
+                            <p>활동 지역</p>
+                            <span onClick={() => navigate('/profilemodify')}>{data?.region || '아직 활동 지역을 입력하지 않았어요'}</span>
+                        </li>
+                    </ul>
+                </SummarySection>
+                <GrayBackground height='8px' />
+            </ProfileContainer>
+            <Tabmenu style={{ margin: "0" }}>
+                <ul>
+                    {tab === 0 ? (
+                        <li onClick={() => setTab(0)} className='focus'>
+                            컬렉션 <p>0</p>
+                        </li>
+                    ) : (
+                        <li onClick={() => setTab(0)}>
+                            컬렉션 <p>0</p>
+                        </li>
+                    )}
+                    {tab === 1 ? (
+                        <li onClick={() => setTab(1)} className='focus'>
+                            리뷰<p>0</p>
+                        </li>
+                    ) : (
+                        <li onClick={() => setTab(1)}>
+                            리뷰<p>0</p>
+                        </li>
+                    )}
+                </ul>
+                <Collection>
+                    {tab === 0 ? (
+                        <CollectionCont>
+                            <section>
+                                <h3>
+                                    내가 만든 컬렉션 <p>0</p>
+                                </h3>
+                                <span></span>
+                            </section>
+                            <section>
+                                <h3>
+                                    관심 레스토랑 <p>0</p>
+                                </h3>
+                                <span></span>
+                            </section>
+                        </CollectionCont>
+                    ) : (
+                        <CollectionCont display='none'>
+                            <section>
+                                <h3>
+                                    내가 만든 컬렉션 <p>0</p>
+                                </h3>
+                                <span></span>
+                            </section>
+                            <section>
+                                <h3>
+                                    관심 레스토랑 <p>0</p>
+                                </h3>
+                                <span></span>
+                            </section>
+                        </CollectionCont>
+                    )}
+                    {tab === 1 ? (
+                        <ReviewCont>
+                            <section>등록된 리뷰가 없습니다</section>
+                        </ReviewCont>
+                    ) : (
+                        <ReviewCont display='none'>
+                            {!reviewdata ? (
+                                <section>등록된 리뷰가 없습니다</section>
+                            ) : (
+                                <section>
+                                    <ReviewCont>
+                                        <ScrollContainer>
+                                            <div className="scroll-container">
+                                                <ReviewImg>
+                                                    <li>
+                                                        {reviewdata.image?.map(item => <img src={item} alt='리뷰이미지' />) || ''}
+                                                    </li>
+                                                </ReviewImg>
+                                            </div>
+                                        </ScrollContainer>
+                                        <div className="review_post">
+                                            <h4>{reviewdata?.title}</h4>
+                                            <p>
+                                                {reviewdata?.content}
+                                            </p>
+                                        </div>
+                                    </ReviewCont>
+                                </section>
+                            )}
+                        </ReviewCont>
+                    )}
+                </Collection>
+                {tab == 0 && <div className="button">
+                    <button onClick={handleLogOut}>로그아웃</button>
+                    <button onClick={handleSignOut}>회원탈퇴</button>
+                </div>}
+            </Tabmenu>
+        </>
+    );
 };
 
 export const Wrapper = styled.div`
@@ -285,6 +313,7 @@ export const SummarySection = styled.section`
       display: flex;
       flex-direction: row;
       border-bottom: 1px solid #e8e8e8;
+      cursor: pointer;
       p {
         margin: 0;
         min-width: 5em;
@@ -344,6 +373,25 @@ export const Tabmenu = styled.div`
     .focus {
       border-bottom: 2px solid #333;
     }
+  }
+  .button {
+    margin-top: 50px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    button {
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 8px 20px;
+    width: 50%;
+    transition: all 0.3s;
+    &:hover {
+        background-color: #ff3d00;
+    color: #fff;
+    }
+  }
   }
 `;
 

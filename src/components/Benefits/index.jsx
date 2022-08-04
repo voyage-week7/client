@@ -28,6 +28,58 @@ const Benefits = () => {
                             </div>
                         </SquereFooter>
                     </SquereItem>
+                    <SquereItem>
+                        <div className="img">
+                            <img src={`${img}`} />
+                            <span>2주년 기념 10% 할인</span>
+                        </div>
+                        <SquereFooter>
+                            <h3>비스트로 수방</h3>
+                            <div className="meta">
+                                <span className='score'>4.5</span>
+                                <span className='tags'>다이닝바 • 명동</span>
+                            </div>
+                        </SquereFooter>
+                    </SquereItem>
+                    <SquereItem>
+                        <div className="img">
+                            <img src={`${img}`} />
+                            <span>2주년 기념 10% 할인</span>
+                        </div>
+                        <SquereFooter>
+                            <h3>비스트로 수방</h3>
+                            <div className="meta">
+                                <span className='score'>4.5</span>
+                                <span className='tags'>다이닝바 • 명동</span>
+                            </div>
+                        </SquereFooter>
+                    </SquereItem>
+                    <SquereItem>
+                        <div className="img">
+                            <img src={`${img}`} />
+                            <span>2주년 기념 10% 할인</span>
+                        </div>
+                        <SquereFooter>
+                            <h3>비스트로 수방</h3>
+                            <div className="meta">
+                                <span className='score'>4.5</span>
+                                <span className='tags'>다이닝바 • 명동</span>
+                            </div>
+                        </SquereFooter>
+                    </SquereItem>
+                    <SquereItem>
+                        <div className="img">
+                            <img src={`${img}`} />
+                            <span>2주년 기념 10% 할인</span>
+                        </div>
+                        <SquereFooter>
+                            <h3>비스트로 수방</h3>
+                            <div className="meta">
+                                <span className='score'>4.5</span>
+                                <span className='tags'>다이닝바 • 명동</span>
+                            </div>
+                        </SquereFooter>
+                    </SquereItem>
                     <ShowAll>
                         <div className="circle"></div>
                         <p>전체보기</p>

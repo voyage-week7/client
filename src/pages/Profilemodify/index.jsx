@@ -1,58 +1,75 @@
-import React, { useRef } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { apis } from '../../apis';
 import { SearchHeader } from '../Search';
 
 const Profilemodify = ({ username, description, region }) => {
-  const navigate = useNavigate();
-  const username_ref = useRef();
-  const introduce_ref = useRef();
-  const location_ref = useRef();
-  const profilemodify = (e) => {
-    e.preventDefault();
-    const username_value = username_ref.current.value;
-    const introduce_value = introduce_ref.current.value;
-    const location_value = location_ref.current.value;
-    console.log(username_value, introduce_value, location_value);
-  };
-  return (
-    <>
-      <SearchHeader>
-        <nav>
-          <span onClick={() => navigate(-1)}></span>
-          <h3>프로필 수정</h3>
-        </nav>
-        <Myaccount>
-          <div className='pic'>
-            <img src='/images/profile_default.png' alt='' />
-          </div>
-          <form className='form'>
-            <div className='input'>
-              <label htmlFor=''>닉네임</label>
-              <input ref={username_ref} type='text' placeholder='닉네임은 최대 15자까지 가능합니다.' />
-            </div>
-            <div className='input'>
-              <label htmlFor=''>자기 소개</label>
-              <textarea
-                ref={introduce_ref}
-                type='text'
-                rows='3'
-                placeholder='자신을 알릴 수 있는 소개글을 작성해 주세요.'
-              />
-            </div>
-            <div className='input'>
-              <label htmlFor=''>활동 지역</label>
-              <div className='location'>
-                <span></span>
-                <input ref={location_ref} type='text' placeholder='ex)분당에 있지만 맛있는 곳은 어디든지' />
-              </div>
-            </div>
-            <button onClick={profilemodify}>저장</button>
-          </form>
-        </Myaccount>
-      </SearchHeader>
-    </>
-  );
+    const navigate = useNavigate();
+    const username_ref = useRef();
+    const desc_ref = useRef();
+    const region_ref = useRef();
+    const queryClient = useQueryClient();
+    const { data } = useQuery(['user'], () => apis.getUser().then(res => res.data));
+    const mutate = useMutation((data) => apis.patchUser(data), {
+        onSuccess: () => {
+            queryClient.invalidateQueries(['user']);
+        },
+        onError: () => {
+            console.log('실패');
+        }
+    }); // post
+
+    const profilemodify = (e) => {
+        const data = {
+            username: username_ref.current.value,
+            description: desc_ref.current.value,
+            region: region_ref.current.value
+        }
+        e.preventDefault();
+        mutate.mutate(data);
+        navigate('/profile');
+    };
+    return (
+        <>
+            <SearchHeader>
+                <nav>
+                    <span onClick={() => navigate(-1)}></span>
+                    <h3>프로필 수정</h3>
+                </nav>
+                <Myaccount>
+                    <div className='pic'>
+                        <img src='/images/profile_default.png' alt='' />
+                    </div>
+                    <form className='form'>
+                        <div className='input'>
+                            <label htmlFor=''>닉네임</label>
+                            <input ref={username_ref} defaultValue={data?.username || ''} type='text' placeholder='닉네임은 최대 15자까지 가능합니다.' />
+                        </div>
+                        <div className='input'>
+                            <label htmlFor=''>자기 소개</label>
+                            <textarea
+                                ref={desc_ref}
+                                type='text'
+                                rows='3'
+                                defaultValue={data?.description || ''}
+                                placeholder='자신을 알릴 수 있는 소개글을 작성해 주세요.'
+                            />
+                        </div>
+                        <div className='input'>
+                            <label htmlFor=''>활동 지역</label>
+                            <div className='location'>
+                                <span></span>
+                                <input type='text' defaultValue={data?.region || ''} ref={region_ref} placeholder='ex)분당에 있지만 맛있는 곳은 어디든지' />
+                            </div>
+                        </div>
+                        <button onClick={profilemodify}>저장</button>
+                    </form>
+                </Myaccount>
+            </SearchHeader>
+        </>
+    );
 };
 
 export default Profilemodify;

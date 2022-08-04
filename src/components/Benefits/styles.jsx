@@ -27,6 +27,7 @@ export const TitleHeader = styled.div`
 
 export const SquereItem = styled.div`
     width: 200px;
+    margin: 0 5px;
     .img {
         width: 200px;
         height: 200px;

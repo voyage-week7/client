@@ -28,6 +28,54 @@ const NewOpen = () => {
                             </div>
                         </SquereFooter>
                     </SquereItem>
+                    <SquereItem>
+                        <div className="img">
+                            <img src={`${img}`} />
+                        </div>
+                        <SquereFooter>
+                            <h3>샐러드보투아</h3>
+                            <div className="meta">
+                                <span className="score">4.4</span>
+                                <span className='tags'>와인 • 석촌</span>
+                            </div>
+                        </SquereFooter>
+                    </SquereItem>
+                    <SquereItem>
+                        <div className="img">
+                            <img src={`${img}`} />
+                        </div>
+                        <SquereFooter>
+                            <h3>샐러드보투아</h3>
+                            <div className="meta">
+                                <span className="score">4.4</span>
+                                <span className='tags'>와인 • 석촌</span>
+                            </div>
+                        </SquereFooter>
+                    </SquereItem>
+                    <SquereItem>
+                        <div className="img">
+                            <img src={`${img}`} />
+                        </div>
+                        <SquereFooter>
+                            <h3>샐러드보투아</h3>
+                            <div className="meta">
+                                <span className="score">4.4</span>
+                                <span className='tags'>와인 • 석촌</span>
+                            </div>
+                        </SquereFooter>
+                    </SquereItem>
+                    <SquereItem>
+                        <div className="img">
+                            <img src={`${img}`} />
+                        </div>
+                        <SquereFooter>
+                            <h3>샐러드보투아</h3>
+                            <div className="meta">
+                                <span className="score">4.4</span>
+                                <span className='tags'>와인 • 석촌</span>
+                            </div>
+                        </SquereFooter>
+                    </SquereItem>
                     <ShowAll>
                         <div className="circle"></div>
                         <p>전체보기</p>

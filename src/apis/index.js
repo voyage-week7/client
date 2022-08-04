@@ -15,7 +15,7 @@ instance.interceptors.request.use((config) => {
 });
 
 export const apis = {
-  checkId: (id) => instance.get(`/api/users/${id}`),
+  checkId: (id) => instance.get(`/api/checkUser/${id}`),
   signUp: async (id, pw, username) => instance.post('/api/signup', { id, pw, username }),
   logIn: async (id, pw) => instance.post('/api/signin', { id, pw }),
   signOut: async () => instance.delete('/api/users'),
