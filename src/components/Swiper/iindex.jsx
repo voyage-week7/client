@@ -14,7 +14,6 @@ const ImageSwiper = ({ data }) => {
       slidesPerView={1}
       autoplay={{ delay: 3000 }}
       pagination={{ clickable: true }}
-      onSwiper={(swiper) => console.log(swiper)}
     >
       {data?.map((d, idx) => (
         <SwiperSlide key={idx}>

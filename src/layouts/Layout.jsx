@@ -58,37 +58,35 @@ const Layout = ({ children }) => {
         </Header>
       )}
       {children}
-      {/search/g.test(now) ? null : (
-        <NavBar>
-          <div className='container'>
-            <div>
-              <Link to='/'>
-                <img src={now === '/' ? '/images/home.svg' : '/images/home-light.svg'} alt='' />
-              </Link>
-            </div>
-            <div>
-              <Link to='/search'>
-                <img src={now === '/search' ? '/images/search-bold.svg' : '/images/search-black.svg'} alt='' />
-              </Link>
-            </div>
-            <div>
-              <Link to='/review'>
-                <img src={now === '/review' ? '/images/review-bold.svg' : '/images/review.svg'} alt='' />
-              </Link>
-            </div>
-            <div>
-              <Link to='/reservations/my/planned'>
-                <img src={/reservations/g.test(now) ? '/images/calendar-bold.svg' : '/images/calendar.svg'} alt='' />
-              </Link>
-            </div>
-            <div>
-              <Link to='/profile'>
-                <img src={now === '/profile' ? '/images/user-bold.svg' : '/images/user.svg'} alt='' />
-              </Link>
-            </div>
+      <NavBar>
+        <div className='container'>
+          <div>
+            <Link to='/'>
+              <img src={now === '/' ? '/images/home.svg' : '/images/home-light.svg'} alt='' />
+            </Link>
           </div>
-        </NavBar>
-      )}
+          <div>
+            <Link to='/search'>
+              <img src={now === '/search' ? '/images/search-bold.svg' : '/images/search-black.svg'} alt='' />
+            </Link>
+          </div>
+          <div>
+            <Link to='/review'>
+              <img src={now === '/review' ? '/images/review-bold.svg' : '/images/review.svg'} alt='' />
+            </Link>
+          </div>
+          <div>
+            <Link to='/reservations/my/planned'>
+              <img src={/reservations/g.test(now) ? '/images/calendar-bold.svg' : '/images/calendar.svg'} alt='' />
+            </Link>
+          </div>
+          <div>
+            <Link to='/profile'>
+              <img src={now === '/profile' ? '/images/user-bold.svg' : '/images/user.svg'} alt='' />
+            </Link>
+          </div>
+        </div>
+      </NavBar>
     </Wapper>
   );
 };
