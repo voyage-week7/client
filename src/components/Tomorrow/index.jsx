@@ -32,6 +32,74 @@ const Tomorrow = () => {
                             </ul>
                         </SquereFooter>
                     </SquereItem>
+                    <SquereItem style={{ width: "250px" }}>
+                        <div className="tomorrow-img">
+                            <img src={`${img}`} />
+                        </div>
+                        <SquereFooter>
+                            <h3>뚝심한우 센터원점</h3>
+                            <div className="meta">
+                                <span className="score">4.5</span>
+                                <span className="tags">소고기구이 • 을지로</span>
+                            </div>
+                            <ul className="time-table">
+                                <li>오후 6:30</li>
+                                <li>오후 7:00</li>
+                                <li>오후 7:30</li>
+                            </ul>
+                        </SquereFooter>
+                    </SquereItem>
+                    <SquereItem style={{ width: "250px" }}>
+                        <div className="tomorrow-img">
+                            <img src={`${img}`} />
+                        </div>
+                        <SquereFooter>
+                            <h3>뚝심한우 센터원점</h3>
+                            <div className="meta">
+                                <span className="score">4.5</span>
+                                <span className="tags">소고기구이 • 을지로</span>
+                            </div>
+                            <ul className="time-table">
+                                <li>오후 6:30</li>
+                                <li>오후 7:00</li>
+                                <li>오후 7:30</li>
+                            </ul>
+                        </SquereFooter>
+                    </SquereItem>
+                    <SquereItem style={{ width: "250px" }}>
+                        <div className="tomorrow-img">
+                            <img src={`${img}`} />
+                        </div>
+                        <SquereFooter>
+                            <h3>뚝심한우 센터원점</h3>
+                            <div className="meta">
+                                <span className="score">4.5</span>
+                                <span className="tags">소고기구이 • 을지로</span>
+                            </div>
+                            <ul className="time-table">
+                                <li>오후 6:30</li>
+                                <li>오후 7:00</li>
+                                <li>오후 7:30</li>
+                            </ul>
+                        </SquereFooter>
+                    </SquereItem>
+                    <SquereItem style={{ width: "250px" }}>
+                        <div className="tomorrow-img">
+                            <img src={`${img}`} />
+                        </div>
+                        <SquereFooter>
+                            <h3>뚝심한우 센터원점</h3>
+                            <div className="meta">
+                                <span className="score">4.5</span>
+                                <span className="tags">소고기구이 • 을지로</span>
+                            </div>
+                            <ul className="time-table">
+                                <li>오후 6:30</li>
+                                <li>오후 7:00</li>
+                                <li>오후 7:30</li>
+                            </ul>
+                        </SquereFooter>
+                    </SquereItem>
                     <ShowAll>
                         <div className="circle"></div>
                         <p>전체보기</p>

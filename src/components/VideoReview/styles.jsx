@@ -6,5 +6,5 @@ export const VideoItem = styled.div`
     height: 222px;
     margin-right: 10px;
     border-radius: 4px;
-    background-color: antiquewhite;
+    background-image: url('/images/live.webp');
 `

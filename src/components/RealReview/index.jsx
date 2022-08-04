@@ -38,6 +38,118 @@ const RealReview = () => {
                             </div>
                         </RealReviewFooter>
                     </RealReviewItem>
+                    <RealReviewItem>
+                        <RealReviewHeader>
+                            <div className='user'>
+                                <span></span>
+                                <p>성공한 마스터</p>
+                            </div>
+                            <div className="date">
+                                <p>최근 방문일</p>
+                                <p>2022.07.08</p>
+                            </div>
+                        </RealReviewHeader>
+                        <RealReviewCont>
+                            <div className="text">
+                                <h3>왜 예약하기 <br />힘든지 알겠어요</h3>
+                                <p>절대 이 가격에 나올 수 없는 원물들과 기가 막힌 숙성!</p>
+                            </div>
+                        </RealReviewCont>
+                        <RealReviewFooter>
+                            <h3>성수오오</h3>
+                            <div className="meta">
+                                <span className="score">
+                                    <span>5.0</span>
+                                    <span className='count'>(8)</span>
+                                </span>
+                                <span className="tag">다이닝바 • 성수</span>
+                            </div>
+                        </RealReviewFooter>
+                    </RealReviewItem>
+                    <RealReviewItem>
+                        <RealReviewHeader>
+                            <div className='user'>
+                                <span></span>
+                                <p>성공한 마스터</p>
+                            </div>
+                            <div className="date">
+                                <p>최근 방문일</p>
+                                <p>2022.07.08</p>
+                            </div>
+                        </RealReviewHeader>
+                        <RealReviewCont>
+                            <div className="text">
+                                <h3>왜 예약하기 <br />힘든지 알겠어요</h3>
+                                <p>절대 이 가격에 나올 수 없는 원물들과 기가 막힌 숙성!</p>
+                            </div>
+                        </RealReviewCont>
+                        <RealReviewFooter>
+                            <h3>성수오오</h3>
+                            <div className="meta">
+                                <span className="score">
+                                    <span>5.0</span>
+                                    <span className='count'>(8)</span>
+                                </span>
+                                <span className="tag">다이닝바 • 성수</span>
+                            </div>
+                        </RealReviewFooter>
+                    </RealReviewItem>
+                    <RealReviewItem>
+                        <RealReviewHeader>
+                            <div className='user'>
+                                <span></span>
+                                <p>성공한 마스터</p>
+                            </div>
+                            <div className="date">
+                                <p>최근 방문일</p>
+                                <p>2022.07.08</p>
+                            </div>
+                        </RealReviewHeader>
+                        <RealReviewCont>
+                            <div className="text">
+                                <h3>왜 예약하기 <br />힘든지 알겠어요</h3>
+                                <p>절대 이 가격에 나올 수 없는 원물들과 기가 막힌 숙성!</p>
+                            </div>
+                        </RealReviewCont>
+                        <RealReviewFooter>
+                            <h3>성수오오</h3>
+                            <div className="meta">
+                                <span className="score">
+                                    <span>5.0</span>
+                                    <span className='count'>(8)</span>
+                                </span>
+                                <span className="tag">다이닝바 • 성수</span>
+                            </div>
+                        </RealReviewFooter>
+                    </RealReviewItem>
+                    <RealReviewItem>
+                        <RealReviewHeader>
+                            <div className='user'>
+                                <span></span>
+                                <p>성공한 마스터</p>
+                            </div>
+                            <div className="date">
+                                <p>최근 방문일</p>
+                                <p>2022.07.08</p>
+                            </div>
+                        </RealReviewHeader>
+                        <RealReviewCont>
+                            <div className="text">
+                                <h3>왜 예약하기 <br />힘든지 알겠어요</h3>
+                                <p>절대 이 가격에 나올 수 없는 원물들과 기가 막힌 숙성!</p>
+                            </div>
+                        </RealReviewCont>
+                        <RealReviewFooter>
+                            <h3>성수오오</h3>
+                            <div className="meta">
+                                <span className="score">
+                                    <span>5.0</span>
+                                    <span className='count'>(8)</span>
+                                </span>
+                                <span className="tag">다이닝바 • 성수</span>
+                            </div>
+                        </RealReviewFooter>
+                    </RealReviewItem>
                 </div>
             </ScrollContainer >
         </div >
