@@ -28,6 +28,54 @@ const GuidBook = () => {
                             </div>
                         </SquereFooter>
                     </SquereItem>
+                    <SquereItem>
+                        <div className="img">
+                            <img src={`${img}`} />
+                        </div>
+                        <SquereFooter>
+                            <h3>알고리즘</h3>
+                            <div className="meta">
+                                <span className="score">4.5</span>
+                                <span className="tags">퓨전,컨템포러리 • 도산공원</span>
+                            </div>
+                        </SquereFooter>
+                    </SquereItem>
+                    <SquereItem>
+                        <div className="img">
+                            <img src={`${img}`} />
+                        </div>
+                        <SquereFooter>
+                            <h3>알고리즘</h3>
+                            <div className="meta">
+                                <span className="score">4.5</span>
+                                <span className="tags">퓨전,컨템포러리 • 도산공원</span>
+                            </div>
+                        </SquereFooter>
+                    </SquereItem>
+                    <SquereItem>
+                        <div className="img">
+                            <img src={`${img}`} />
+                        </div>
+                        <SquereFooter>
+                            <h3>알고리즘</h3>
+                            <div className="meta">
+                                <span className="score">4.5</span>
+                                <span className="tags">퓨전,컨템포러리 • 도산공원</span>
+                            </div>
+                        </SquereFooter>
+                    </SquereItem>
+                    <SquereItem>
+                        <div className="img">
+                            <img src={`${img}`} />
+                        </div>
+                        <SquereFooter>
+                            <h3>알고리즘</h3>
+                            <div className="meta">
+                                <span className="score">4.5</span>
+                                <span className="tags">퓨전,컨템포러리 • 도산공원</span>
+                            </div>
+                        </SquereFooter>
+                    </SquereItem>
                     <ShowAll>
                         <div className="circle"></div>
                         <p>전체보기</p>

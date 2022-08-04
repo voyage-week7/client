@@ -17,14 +17,16 @@ const LoginEmail = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const user = await apis.logIn(id, password);
-
-    if (user.headers.authorization) {
-      window.localStorage.setItem('token', user.headers.authorization.split(' ')[1]);
-      const userInfo = await apis.getUser();
-      console.log(userInfo);
-      dispatch(logIn({ id: userInfo.id, username: userInfo.username }));
-      navigate('/');
+    try {
+      const user = await apis.logIn(id, password);
+      if (user.headers.authorization) {
+        window.localStorage.setItem('token', user.headers.authorization.split(' ')[1]);
+        const userInfo = await apis.getUser().then((res) => res.data);
+        dispatch(logIn({ id: userInfo.id, username: userInfo.username }));
+        navigate('/');
+      }
+    } catch (e) {
+      alert('존재하지 않는 아이디입니다');
     }
   };
 

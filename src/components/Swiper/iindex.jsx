@@ -17,7 +17,7 @@ const ImageSwiper = ({ data }) => {
     >
       {data?.map((d, idx) => (
         <SwiperSlide key={idx}>
-          <img style={{ width: '100%' }} src={d.url} alt='image' />
+          <img style={{ width: '100%' }} src={d.imagePath} alt='image' />
         </SwiperSlide>
       ))}
     </Swiper>

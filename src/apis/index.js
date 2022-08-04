@@ -15,14 +15,14 @@ instance.interceptors.request.use((config) => {
 });
 
 export const apis = {
-  checkId: (id) => instance.get(`/api/users/${id}`),
+  checkId: (id) => instance.get(`/api/checkUser/${id}`),
   signUp: async (id, pw, username) => instance.post('/api/signup', { id, pw, username }),
   logIn: async (id, pw) => instance.post('/api/signin', { id, pw }),
   signOut: async () => instance.delete('/api/users'),
   getUser: async () => instance.get('/api/users'),
   getReservations: async () => instance.get('/api/users/reservations'),
   getReviews: async () => instance.get('/api/users/reivews'),
-  patchUser: async () => instance.patch('/api/users'),
+  patchUser: async (data) => instance.patch('/api/users', data),
   createReview: async (storeId, { title, content, image }) =>
     instance.post(`/api/review/stores/${storeId}`, { title, content, image }),
   getStoreDetail: async (id) => instance.get(`/api/stores/${id}`),

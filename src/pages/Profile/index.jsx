@@ -1,10 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { userSlice } from '../../redux/features/userSlice';
+import { apis } from '../../apis';
+import { useQuery } from '@tanstack/react-query';
+import { ScrollContainer } from '../../components/Circle/styles';
+import { ReviewImg } from '../../components/Review/stylex';
 
 const Profile = () => {
+    const { data } = useQuery(['user'], () => apis.getUser().then((res) => res.data));
+    const { reviewdata } = useQuery(['myreview'], () => apis.getReviews().then(res => res.data));
+    console.log(reviewdata);
     const [tab, setTab] = useState(0);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { logOut } = userSlice.actions;
+    const handleLogOut = useCallback(() => {
+        window.localStorage.removeItem('token');
+        dispatch(logOut());
+    }, [dispatch, logOut]);
+    const handleSignOut = useCallback(async () => {
+        const res = await apis.signOut();
+        console.log(res);
+        if (res.status < 400) {
+            alert('회원탈퇴 되었습니다');
+            window.localStorage.removeItem('token');
+            dispatch(logOut());
+        }
+    }, [dispatch, logOut]);
     return (
         <>
             <Pageheader>
@@ -19,7 +43,7 @@ const Profile = () => {
                         <div className='profile-main'>
                             <img src='/images/profile_default.png' alt='' />
                             <div className='profile-meta'>
-                                <h4>유명한 미식가_42274</h4>
+                                <h4>{data?.username}</h4>
                                 <div className='desc'>
                                     <dl>
                                         <dt>팔로잉</dt>
@@ -49,13 +73,13 @@ const Profile = () => {
                         </li>
                         <li>
                             <p>활동 지역</p>
-                            <span>아직 활동 지역을 입력하지 않았어요</span>
+                            <span onClick={() => navigate('/profilemodify')}>{data?.region || '아직 활동 지역을 입력하지 않았어요'}</span>
                         </li>
                     </ul>
                 </SummarySection>
                 <GrayBackground height='8px' />
             </ProfileContainer>
-            <Tabmenu>
+            <Tabmenu style={{ margin: "0" }}>
                 <ul>
                     {tab === 0 ? (
                         <li onClick={() => setTab(0)} className='focus'>
@@ -114,10 +138,36 @@ const Profile = () => {
                         </ReviewCont>
                     ) : (
                         <ReviewCont display='none'>
-                            <section>등록된 리뷰가 없습니다</section>
+                            {!reviewdata ? (
+                                <section>등록된 리뷰가 없습니다</section>
+                            ) : (
+                                <section>
+                                    <ReviewCont>
+                                        <ScrollContainer>
+                                            <div className="scroll-container">
+                                                <ReviewImg>
+                                                    <li>
+                                                        {reviewdata.image?.map(item => <img src={item} alt='리뷰이미지' />) || ''}
+                                                    </li>
+                                                </ReviewImg>
+                                            </div>
+                                        </ScrollContainer>
+                                        <div className="review_post">
+                                            <h4>{reviewdata?.title}</h4>
+                                            <p>
+                                                {reviewdata?.content}
+                                            </p>
+                                        </div>
+                                    </ReviewCont>
+                                </section>
+                            )}
                         </ReviewCont>
                     )}
                 </Collection>
+                {tab == 0 && <div className="button">
+                    <button onClick={handleLogOut}>로그아웃</button>
+                    <button onClick={handleSignOut}>회원탈퇴</button>
+                </div>}
             </Tabmenu>
         </>
     );
@@ -130,7 +180,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Pageheader = styled.header`
-    position: fixed;
+  position: fixed;
   top: 0;
   display: flex;
   flex-direction: column;
@@ -149,31 +199,31 @@ export const Pageheader = styled.header`
       letter-spacing: -1px;
       cursor: default;
     }
-    span{
-        display: block;
-        width: 22px;
-        height: 22px;
-        background-image: url('/images/setting.svg');
-        cursor: pointer;
+    span {
+      display: block;
+      width: 22px;
+      height: 22px;
+      background-image: url('/images/setting.svg');
+      cursor: pointer;
     }
     p {
-        color: #ff3d00;
-        font-size: 14px;
-        letter-spacing: -0.7px;
-        display: flex;
-        flex-direction: row;
-        gap: 4px;
-        cursor: pointer;
-        &:before{
-            content: '';
-            display: block;
-            width: 16px;
-            height: 16px;
-            background-image: url('/images/initialization.svg');
-        }
+      color: #ff3d00;
+      font-size: 14px;
+      letter-spacing: -0.7px;
+      display: flex;
+      flex-direction: row;
+      gap: 4px;
+      cursor: pointer;
+      &:before {
+        content: '';
+        display: block;
+        width: 16px;
+        height: 16px;
+        background-image: url('/images/initialization.svg');
+      }
     }
-}
-`
+  }
+`;
 
 export const ProfileContainer = styled.main`
   display: flex;
@@ -263,6 +313,7 @@ export const SummarySection = styled.section`
       display: flex;
       flex-direction: row;
       border-bottom: 1px solid #e8e8e8;
+      cursor: pointer;
       p {
         margin: 0;
         min-width: 5em;
@@ -294,7 +345,7 @@ export const SummarySection = styled.section`
 `;
 
 export const Tabmenu = styled.div`
-margin-top: ${(props) => props.margin === 0 ? "0" : "48px"};
+  margin-top: ${(props) => (props.margin === 0 ? '0' : '48px')};
   ul {
     display: flex;
     flex-direction: row;
@@ -322,6 +373,25 @@ margin-top: ${(props) => props.margin === 0 ? "0" : "48px"};
     .focus {
       border-bottom: 2px solid #333;
     }
+  }
+  .button {
+    margin-top: 50px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    button {
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 8px 20px;
+    width: 50%;
+    transition: all 0.3s;
+    &:hover {
+        background-color: #ff3d00;
+    color: #fff;
+    }
+  }
   }
 `;
 
