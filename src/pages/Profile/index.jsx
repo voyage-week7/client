@@ -1,126 +1,148 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { userSlice } from '../../redux/features/userSlice';
+import { apis } from '../../apis';
 
 const Profile = () => {
-    const [tab, setTab] = useState(0);
-    const navigate = useNavigate();
-    return (
-        <>
-            <Pageheader>
-                <nav>
-                    <h3>마이페이지</h3>
-                    <span></span>
-                </nav>
-            </Pageheader>
-            <ProfileContainer>
-                <ProfileSection style={{ paddingTop: '24px' }}>
-                    <div className='profile'>
-                        <div className='profile-main'>
-                            <img src='/images/profile_default.png' alt='' />
-                            <div className='profile-meta'>
-                                <h4>유명한 미식가_42274</h4>
-                                <div className='desc'>
-                                    <dl>
-                                        <dt>팔로잉</dt>
-                                        <dd>0</dd>
-                                    </dl>
-                                    <span>|</span>
-                                    <dl>
-                                        <dt>팔로워</dt>
-                                        <dd>0</dd>
-                                    </dl>
-                                </div>
-                            </div>
-                        </div>
-                        <button onClick={() => navigate('/profilemodify')}>프로필 수정</button>
-                    </div>
-                </ProfileSection>
-                <GrayBackground height='8px' />
-                <SummarySection>
-                    <ul>
-                        <li>
-                            <p>평균 별점</p>
-                            <span>아직 평가를 하지 않았어요</span>
-                        </li>
-                        <li>
-                            <p>음식 취향</p>
-                            <span>아직 취향을 선택하지 않았어요</span>
-                        </li>
-                        <li>
-                            <p>활동 지역</p>
-                            <span>아직 활동 지역을 입력하지 않았어요</span>
-                        </li>
-                    </ul>
-                </SummarySection>
-                <GrayBackground height='8px' />
-            </ProfileContainer>
-            <Tabmenu>
-                <ul>
-                    {tab === 0 ? (
-                        <li onClick={() => setTab(0)} className='focus'>
-                            컬렉션 <p>0</p>
-                        </li>
-                    ) : (
-                        <li onClick={() => setTab(0)}>
-                            컬렉션 <p>0</p>
-                        </li>
-                    )}
-                    {tab === 1 ? (
-                        <li onClick={() => setTab(1)} className='focus'>
-                            리뷰<p>0</p>
-                        </li>
-                    ) : (
-                        <li onClick={() => setTab(1)}>
-                            리뷰<p>0</p>
-                        </li>
-                    )}
-                </ul>
-                <Collection>
-                    {tab === 0 ? (
-                        <CollectionCont>
-                            <section>
-                                <h3>
-                                    내가 만든 컬렉션 <p>0</p>
-                                </h3>
-                                <span></span>
-                            </section>
-                            <section>
-                                <h3>
-                                    관심 레스토랑 <p>0</p>
-                                </h3>
-                                <span></span>
-                            </section>
-                        </CollectionCont>
-                    ) : (
-                        <CollectionCont display='none'>
-                            <section>
-                                <h3>
-                                    내가 만든 컬렉션 <p>0</p>
-                                </h3>
-                                <span></span>
-                            </section>
-                            <section>
-                                <h3>
-                                    관심 레스토랑 <p>0</p>
-                                </h3>
-                                <span></span>
-                            </section>
-                        </CollectionCont>
-                    )}
-                    {tab === 1 ? (
-                        <ReviewCont>
-                            <section>등록된 리뷰가 없습니다</section>
-                        </ReviewCont>
-                    ) : (
-                        <ReviewCont display='none'>
-                            <section>등록된 리뷰가 없습니다</section>
-                        </ReviewCont>
-                    )}
-                </Collection>
-            </Tabmenu>
-        </>
-    );
+  const [tab, setTab] = useState(0);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { logOut } = userSlice.actions;
+  const handleLogOut = useCallback(() => {
+    window.localStorage.removeItem('token');
+    dispatch(logOut());
+  }, [dispatch, logOut]);
+
+  const handleSignOut = useCallback(async () => {
+    const res = await apis.signOut();
+    console.log(res);
+    if (res.status < 400) {
+      alert('회원탈퇴 되었습니다');
+      window.localStorage.removeItem('token');
+      dispatch(logOut());
+    }
+  }, [dispatch, logOut]);
+
+  return (
+    <>
+      <Pageheader>
+        <nav>
+          <h3>마이페이지</h3>
+          <span></span>
+        </nav>
+      </Pageheader>
+      <ProfileContainer>
+        <ProfileSection style={{ paddingTop: '24px' }}>
+          <div className='profile'>
+            <div className='profile-main'>
+              <img src='/images/profile_default.png' alt='' />
+              <div className='profile-meta'>
+                <h4>유명한 미식가_42274</h4>
+                <div className='desc'>
+                  <dl>
+                    <dt>팔로잉</dt>
+                    <dd>0</dd>
+                  </dl>
+                  <span>|</span>
+                  <dl>
+                    <dt>팔로워</dt>
+                    <dd>0</dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+            <button onClick={() => navigate('/profilemodify')}>프로필 수정</button>
+          </div>
+        </ProfileSection>
+        <GrayBackground height='8px' />
+        <SummarySection>
+          <ul>
+            <li>
+              <p>평균 별점</p>
+              <span>아직 평가를 하지 않았어요</span>
+            </li>
+            <li>
+              <p>음식 취향</p>
+              <span>아직 취향을 선택하지 않았어요</span>
+            </li>
+            <li>
+              <p>활동 지역</p>
+              <span>아직 활동 지역을 입력하지 않았어요</span>
+            </li>
+          </ul>
+        </SummarySection>
+        <GrayBackground height='8px' />
+      </ProfileContainer>
+      <Tabmenu>
+        <ul>
+          {tab === 0 ? (
+            <li onClick={() => setTab(0)} className='focus'>
+              컬렉션 <p>0</p>
+            </li>
+          ) : (
+            <li onClick={() => setTab(0)}>
+              컬렉션 <p>0</p>
+            </li>
+          )}
+          {tab === 1 ? (
+            <li onClick={() => setTab(1)} className='focus'>
+              리뷰<p>0</p>
+            </li>
+          ) : (
+            <li onClick={() => setTab(1)}>
+              리뷰<p>0</p>
+            </li>
+          )}
+        </ul>
+        <Collection>
+          {tab === 0 ? (
+            <CollectionCont>
+              <section>
+                <h3>
+                  내가 만든 컬렉션 <p>0</p>
+                </h3>
+                <span></span>
+              </section>
+              <section>
+                <h3>
+                  관심 레스토랑 <p>0</p>
+                </h3>
+                <span></span>
+              </section>
+            </CollectionCont>
+          ) : (
+            <CollectionCont display='none'>
+              <section>
+                <h3>
+                  내가 만든 컬렉션 <p>0</p>
+                </h3>
+                <span></span>
+              </section>
+              <section>
+                <h3>
+                  관심 레스토랑 <p>0</p>
+                </h3>
+                <span></span>
+              </section>
+            </CollectionCont>
+          )}
+          {tab === 1 ? (
+            <ReviewCont>
+              <section>등록된 리뷰가 없습니다</section>
+            </ReviewCont>
+          ) : (
+            <ReviewCont display='none'>
+              <section>등록된 리뷰가 없습니다</section>
+            </ReviewCont>
+          )}
+        </Collection>
+        <button onClick={handleLogOut}>로그아웃</button>
+        <button onClick={handleSignOut}>회원탈퇴</button>
+      </Tabmenu>
+    </>
+  );
 };
 
 export const Wrapper = styled.div`
@@ -130,7 +152,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Pageheader = styled.header`
-    position: fixed;
+  position: fixed;
   top: 0;
   display: flex;
   flex-direction: column;
@@ -149,31 +171,31 @@ export const Pageheader = styled.header`
       letter-spacing: -1px;
       cursor: default;
     }
-    span{
-        display: block;
-        width: 22px;
-        height: 22px;
-        background-image: url('/images/setting.svg');
-        cursor: pointer;
+    span {
+      display: block;
+      width: 22px;
+      height: 22px;
+      background-image: url('/images/setting.svg');
+      cursor: pointer;
     }
     p {
-        color: #ff3d00;
-        font-size: 14px;
-        letter-spacing: -0.7px;
-        display: flex;
-        flex-direction: row;
-        gap: 4px;
-        cursor: pointer;
-        &:before{
-            content: '';
-            display: block;
-            width: 16px;
-            height: 16px;
-            background-image: url('/images/initialization.svg');
-        }
+      color: #ff3d00;
+      font-size: 14px;
+      letter-spacing: -0.7px;
+      display: flex;
+      flex-direction: row;
+      gap: 4px;
+      cursor: pointer;
+      &:before {
+        content: '';
+        display: block;
+        width: 16px;
+        height: 16px;
+        background-image: url('/images/initialization.svg');
+      }
     }
-}
-`
+  }
+`;
 
 export const ProfileContainer = styled.main`
   display: flex;
@@ -294,7 +316,7 @@ export const SummarySection = styled.section`
 `;
 
 export const Tabmenu = styled.div`
-margin-top: ${(props) => props.margin === 0 ? "0" : "48px"};
+  margin-top: ${(props) => (props.margin === 0 ? '0' : '48px')};
   ul {
     display: flex;
     flex-direction: row;

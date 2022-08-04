@@ -17,8 +17,11 @@ const SignUp = () => {
     e.preventDefault();
     console.log(id, pw, username);
     const res = await apis.signUp(id, pw, username);
-    console.log(res);
-    // navigate('/loginEmail');
+    if (res.status === 201) {
+      navigate('/loginEmail');
+    } else {
+      alert('회원가입 실패');
+    }
   };
 
   return (

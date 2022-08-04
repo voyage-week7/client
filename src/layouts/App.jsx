@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense, useCallback, useEffect, useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Layout from './Layout';
 import Spinner from '../components/Spinner';
@@ -13,6 +13,7 @@ import Done from '../pages/Done';
 import Cancel from '../pages/Cancel';
 import Notification from '../pages/Notification';
 import ReviewWrite from '../components/ReviewWrite';
+import { apis } from '../apis';
 
 const Home = React.lazy(() => import('../pages/Home'));
 const Profile = React.lazy(() => import('../pages/Profile'));
@@ -27,12 +28,17 @@ function App() {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const { login: handleLoginAction } = userSlice.actions;
+  const { logIn } = userSlice.actions;
+
+  const hadleAutoLogin = useCallback(async () => {
+    const userInfo = await apis.getUser();
+    dispatch(logIn({ id: userInfo.id, username: userInfo.username }));
+  }, []);
 
   useEffect(() => {
     // 자동 로그인 처리
-    // dispatch(handleLoginAction({ id: '1', email: 'email', username: 'user.username' }));
-  }, [dispatch]);
+    hadleAutoLogin();
+  }, [dispatch, logIn]);
 
   return (
     <Suspense fallback={<Spinner />}>
