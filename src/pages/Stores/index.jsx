@@ -4,6 +4,7 @@ import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import PhotoList from '../../components/PhotoList';
 import Review from '../../components/Review';
+import ReviewWrite from '../../components/ReviewWrite';
 import { GrayBackground, Tabmenu } from '../Profile';
 import { SearchHeader } from '../Search';
 
@@ -99,6 +100,7 @@ const Stores = () => {
       <Routes>
         <Route path='/PhotoList' element={<PhotoList />} />
         <Route path='/Review' element={<Review />} />
+        <Route path='/ReviewWirte' element={<ReviewWrite />} />
       </Routes>
     </Reservcontainer>
   );

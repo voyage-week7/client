@@ -7,10 +7,6 @@ export const instance = axios.create({
   withCredentials: true,
 });
 
-axios.get('http://52.79.98.62:8080/api/stores?filter=&sort=&word=&minPrice=&maxPrice=').then((response) => {
-  console.log(response);
-});
-
 instance.interceptors.request.use((config) => {
   config.headers = {
     Authorization: window.localStorage.getItem('token'),
