@@ -12,7 +12,6 @@ const Search = () => {
   const navigate = useNavigate();
   const [isOpen, setOpen] = useState(false);
   const { data, isError, isLoading } = useQuery(['stores'], () => apis.getStores().then((res) => res.data));
-  //
   const today = new Date();
   const day = ['일', '월', '화', '수', '목', '금', '토'];
 
@@ -60,17 +59,7 @@ const Search = () => {
           <p className='toggle'>추천순</p>
         </div>
         {data?.map((d, idx) => (
-          <RestaurantItem
-            key={idx}
-            storename={d.storename}
-            description={d.description || ''}
-            region={d.region}
-            category={d.category}
-            launchPrice={d.launchPrice}
-            dinnerPrice={d.dinnerPrice}
-            storeImageUrl={d.storeImageUrl}
-            id={d.id}
-          />
+          <RestaurantItem key={idx} store={d} />
         ))}
       </SearchMain>
       <Modal isOpen={isOpen} />

@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -7,37 +7,77 @@ import Review from '../../components/Review';
 import ReviewWrite from '../../components/ReviewWrite';
 import { GrayBackground, Tabmenu } from '../Profile';
 import { SearchHeader } from '../Search';
+import { apis } from '../../apis';
+import Spinner from '../../components/Spinner';
+import ImageSwiper from '../../components/Swiper/iindex';
+import { utils } from '../../utils';
+import { timeTable } from '../../components/RestaurantItem';
+import ReservationModal from '../../components/ReservationModal';
+import dayjs from 'dayjs';
 
 const Stores = () => {
   const [tab, setTab] = useState(0);
   const navigate = useNavigate();
   const { Rid } = useParams();
   const today = new Date();
-  const day = ['일', '월', '화', '수', '목', '금', '토',]
+  const day = ['일', '월', '화', '수', '목', '금', '토'];
+  const { data, isLoading, isError } = useQuery(['store', Rid], () => apis.getStoreDetail(Rid).then((res) => res.data));
+  const [times, setTimes] = useState([
+    timeTable[utils.getRandom(timeTable.length - 1)],
+    timeTable[utils.getRandom(timeTable.length - 1)],
+    timeTable[utils.getRandom(timeTable.length - 1)],
+  ]);
+
+  const [modalShow, setModalShow] = useState(false);
+  const [selectedData, setSelectedData] = useState({});
+  if (isLoading || isError) {
+    return <Spinner />;
+  }
+
+  const onReservate = async () => {
+    const [hour, min] = selectedData.time.split(':');
+    const day = dayjs(new Date()).add(1, 'day').set('hour', hour).set('minute', min).format('YYYY-MM-DD hh:mm');
+    try {
+      const res = await apis.reservate(Rid, { day, members: 2 }).then((res) => res.data);
+
+      alert(res.message);
+      setModalShow(false);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const onSelectTime = (time) => {
+    setSelectedData({ time, storename: data.storename, category: data.category });
+    setModalShow(true);
+  };
+
   return (
     <Reservcontainer>
       {tab === 0 ? (
         <div style={{ minWidth: '480px' }}>
-          <div className="img">
-            <span className='location'></span>
+          <div className='img' style={{ overflow: 'hidden' }}>
+            <ImageSwiper data={data.storeImages} />
           </div>
-          <div className="section">
-            <h3>하쯔호</h3>
-            <span>알찬 구성의 미들급 스시야</span>
-            <p>스시오마카세 • 여의도</p>
+          <span className='location'></span>
+
+          <div className='section'>
+            <h3>{data.storename}</h3>
+            <span>{data.description}</span>
+            <p>{data.category}</p>
             <div className='star'>
-              <p className='score'>4.6</p>
-              <p className='count'>(94)</p>
+              <p className='score'>{data.reviewAvg}</p>
+              <p className='count'>({data.reviewCount})</p>
             </div>
-            <div className="price">
-              <span>점심 6만원</span>
-              <span>저녁 16만원</span>
+            <div className='price'>
+              <span>점심 {utils.getRandom(30)}만원</span>
+              <span>저녁 {5 + utils.getRandom(40)}만원</span>
             </div>
           </div>
-          <GrayBackground height="8px" />
+          <GrayBackground height='8px' />
         </div>
       ) : (
-        <div style={{ minWidth: "480px" }}>
+        <div style={{ minWidth: '480px' }}>
           <SearchHeader>
             <nav>
               <span onClick={() => navigate(-1)}></span>
@@ -45,8 +85,7 @@ const Stores = () => {
             </nav>
           </SearchHeader>
         </div>
-      )
-      }
+      )}
       <Tabmenu margin={tab}>
         <ul>
           {tab === 0 ? (
@@ -54,67 +93,126 @@ const Stores = () => {
               홈 <p>0</p>
             </li>
           ) : (
-            <li onClick={() => {
-              setTab(0);
-              navigate(`/stores/${Rid}`)
-            }}>
+            <li
+              onClick={() => {
+                setTab(0);
+                navigate(`/stores/${Rid}`);
+              }}
+            >
               홈 <p>0</p>
             </li>
           )}
           {tab === 1 ? (
-            <li onClick={() => {
-              setTab(1);
-            }} className='focus'>
+            <li
+              onClick={() => {
+                setTab(1);
+              }}
+              className='focus'
+            >
               사진<p>0</p>
             </li>
           ) : (
-            <li onClick={() => {
-              setTab(1);
-              navigate(`/stores/${Rid}/PhotoList`)
-            }}>
+            <li
+              onClick={() => {
+                setTab(1);
+                navigate(`/stores/${Rid}/PhotoList`);
+              }}
+            >
               사진<p>0</p>
             </li>
           )}
           {tab === 2 ? (
-            <li onClick={() => {
-              setTab(2);
-            }} className='focus'>
+            <li
+              onClick={() => {
+                setTab(2);
+              }}
+              className='focus'
+            >
               리뷰<p>0</p>
             </li>
           ) : (
-            <li onClick={() => {
-              setTab(2);
-              navigate(`/stores/${Rid}/Review`)
-            }}>
+            <li
+              onClick={() => {
+                setTab(2);
+                navigate(`/stores/${Rid}/Review`);
+              }}
+            >
               리뷰<p>0</p>
             </li>
           )}
         </ul>
       </Tabmenu>
-      {tab == 0 && <Reservation >
-        <div>
-          <span>내일 ({day[(today.getDay()) + 1]}) / 2명</span>
-          <p></p>
-        </div>
-      </Reservation>}
+      {tab == 0 && (
+        <ContentWrapper>
+          <Reservation>
+            <div>
+              <span>내일 ({day[today.getDay() + 1]}) / 2명</span>
+            </div>
+          </Reservation>
+          <ul className='time-table'>
+            {times.sort().map((t, idx) => (
+              <li key={idx} onClick={() => onSelectTime(t)}>
+                {t}
+              </li>
+            ))}
+          </ul>
+        </ContentWrapper>
+      )}
       <Routes>
         <Route path='/PhotoList' element={<PhotoList />} />
         <Route path='/Review' element={<Review />} />
         <Route path='/ReviewWirte' element={<ReviewWrite />} />
       </Routes>
+      {modalShow && (
+        <ReservationModal
+          modalShow={modalShow}
+          setModalShow={setModalShow}
+          selectedData={selectedData}
+          onSuccess={onReservate}
+        />
+      )}
     </Reservcontainer>
   );
 };
 
 export default Stores;
 
+const ContentWrapper = styled.div`
+  margin-bottom: 10rem;
+
+  .time-table {
+    margin-top: 13px;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    text-align: center;
+
+    li {
+      background-color: #ff3d00;
+      padding: 12px 0 11px;
+      color: #fff;
+      min-width: 70px;
+      width: 33.33333%;
+      border-radius: 6px;
+      font-size: 13px;
+      line-height: 13px;
+      letter-spacing: -0.7px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #b32f00;
+      }
+    }
+  }
+`;
+
 export const Reservcontainer = styled.div`
   min-width: 480px;
+  overflow: auto;
   .img {
     position: relative;
     width: 480px;
     height: 320px;
-    background-color: coral;
     margin-bottom: 40px;
   }
   .location {
@@ -123,21 +221,22 @@ export const Reservcontainer = styled.div`
     height: 48px;
     display: block;
     position: absolute;
-    bottom: 0;
+    top: 270px;
+    z-index: 999;
     transform: translateY(50%);
     right: 20px;
     cursor: pointer;
   }
   .section {
     padding: 0 20px;
-    h3{
+    h3 {
       font-size: 22px;
       margin-bottom: 4px;
       line-height: 26.4px;
       letter-spacing: -1.1px;
       font-weight: 400;
     }
-    span{
+    span {
       font-size: 16px;
       line-height: 26px;
       letter-spacing: -0.8px;
@@ -145,15 +244,15 @@ export const Reservcontainer = styled.div`
       margin-bottom: 6px;
       display: block;
     }
-    p{
-      font-size:13px;
+    p {
+      font-size: 13px;
       line-height: 13px;
       letter-spacing: -0.7px;
       color: #666;
       font-weight: 400;
     }
   }
-  .star{
+  .star {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -168,14 +267,14 @@ export const Reservcontainer = styled.div`
       flex-direction: row;
       gap: 5px;
       color: #000;
-      &:before{
-      content: '';
-      display: block;
-      width: 14px;
-      height: 14px;
-      background-image: url('/images/star.svg');
-      background-size: cover;
-    }
+      &:before {
+        content: '';
+        display: block;
+        width: 14px;
+        height: 14px;
+        background-image: url('/images/star.svg');
+        background-size: cover;
+      }
     }
     .count {
       font-size: 13px;
@@ -195,26 +294,26 @@ export const Reservcontainer = styled.div`
       flex-direction: row;
       align-items: center;
       gap: 4px;
-    &:before {
-      content: '';
-      display: block;
-      width: 19px;
-      height: 19px;
-      background-image: url('/images/lunch.svg');
-    }
-    &:last-child:before {
-      background-image: url('/images/dinner.svg');
-    }
+      &:before {
+        content: '';
+        display: block;
+        width: 19px;
+        height: 19px;
+        background-image: url('/images/lunch.svg');
+      }
+      &:last-child:before {
+        background-image: url('/images/dinner.svg');
+      }
     }
   }
-`
+`;
 export const Reservation = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 30px 20px;
   cursor: pointer;
-  div{
+  div {
     border: 1px solid #d5d5d5;
     border-radius: 6px;
     background-color: #fff;
@@ -247,4 +346,4 @@ export const Reservation = styled.div`
       display: block;
     }
   }
-`
+`;
